@@ -19,7 +19,10 @@ def ventanas():
             exit()
 
         def OptenerTextoArxhivo():
-            pass
+            Editor.delete("1.0", END)
+            texto = AbrirArchivo()
+            Editor.insert("1.0", texto)
+            
 
         def OperarMasivo():
             consola.delete("1.0", END)
