@@ -1,6 +1,7 @@
 from tkinter import * 
 from tkinter import filedialog, Tk
 import tkinter.scrolledtext as scrolledtext
+import Operaciones as op
 Nombre = ""
 
 opcion = ["No data"]
@@ -36,6 +37,11 @@ def ventanas():
                     print(text)
             consola.insert("1.0", TextoEditor)
             consola.config(state="disabled")
+
+        def Analizar():
+            TextoEditor = Editor.get("1.0", END)
+            op.ObtencionTokens(TextoEditor)
+           
             
 
         #Ventana-----------------------------------------------------------------------------------
@@ -45,7 +51,7 @@ def ventanas():
         
         Label(ventana,text = "Proyecto 2 - 202000119",fg="Gray",font=("Popins",12)).place(x=10, y =25)
         Button(ventana,text="Abrir",command= OptenerTextoArxhivo).place(x=1000, y =25)
-        Button(ventana,text="Analizar",command= OperarMasivo).place(x=1050, y =25)
+        Button(ventana,text="Analizar",command= Analizar).place(x=1050, y =25)
         Button(ventana,text="Reportes",command= OperarMasivo).place(x=1120, y =25)
         Label(ventana,text = linea,fg="Gray",font=("Popins",12)).place(x=15, y= 50)
         #Terminar Encabezado ------------------------------------------------------------------------------------
