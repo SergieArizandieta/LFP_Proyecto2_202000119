@@ -5,8 +5,12 @@ import Grafica as g
 if __name__ == "__main__":
     
     try: 
-       #Grafica.ventanas()
-        op.ObtencionTokens(g.AbrirArchivo())
+        #Grafica.ventanas()
+        texto = open("C:/Users/sergi/3D Objects/GitHub/LFP_Proyecto2_202000119/Prueba.lfp", 'r',encoding="utf8" ).read()
+        print('\n"Lectura exitosa"\n')
+        texto += "~"
+       
+        op.ObtencionTokens(texto)
 
     except Exception:
         

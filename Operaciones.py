@@ -1,5 +1,6 @@
 
 def ObtencionTokens(texto):
+    repetir = True
     estado = 0
     txtTemp = ""
     columna = 1
@@ -7,63 +8,69 @@ def ObtencionTokens(texto):
 
 
     for txt in texto:
-      
-        if estado==0:
-            if isLetra(txt):
-                estado = 1
-                txtTemp += txt
-            elif isNumero(txt):
-                estado = 4
-            elif ord(txt) == 34: # "
-                estado = 3
-            elif isSimbolo(txt):
-                estado = 2
-            elif ord(txt) == 35: # #
-                estado = 5
-            elif ord(txt) == 39: # '
-                estado = 6
-            else:
+        repetir = True
+        while repetir:
+            if estado==0:
+                if isLetra(txt):
+                    estado = 1
+                    txtTemp += txt
+                elif isNumero(txt):
+                    estado = 4
+                elif ord(txt) == 34: # "
+                    estado = 3
+                elif isSimbolo(txt):
+                    estado = 2
+                elif ord(txt) == 35: # #
+                    estado = 5
+                elif ord(txt) == 39: # '
+                    estado = 6
+                else:
 
-                if ord(txt) == 32 or ord(txt) == 10 or ord(txt) == 9 or txt == '~':
-                    pass
-                else: 
-                    print("Error Lexico, se detecto " + txt + " en S0  F: " + str(fila) + ", C: " + str(columna))
-                    errortipo= 'Caracter inesperado, esperaba L|D|#|S|"|@' 
-        elif estado == 1:
-            if (isLetra(txt)):
-                txtTemp += txt
-                estado = 1
-            
-            elif (ord(txt) == 95 ): # _
-                txtTemp += txt
-                estado = 1
-            
-            elif (isNumero(txt)):
-                txtTemp +=   txt
-                estado = 1
-            else:
-                print("No se reconocio en S1: '" + txtTemp + "' F: " + str(fila) + ", C: " + str(columna - len(txtTemp)))
-                txtTemp = ""
-                estado = 0
+                    if ord(txt) == 32 or ord(txt) == 10 or ord(txt) == 9 or txt == '~':
+                        pass
+                    else: 
+                        print("Error Lexico, se detecto " + txt + " en S0  F: " + str(fila) + ", C: " + str(columna))
+                        errortipo= 'Caracter inesperado, esperaba L|D|#|S|"|@' 
+            elif estado == 1:
+                if (isLetra(txt)):
+                    txtTemp += txt
+                    estado = 1
                 
+                elif (ord(txt) == 95 ): # _
+                    txtTemp += txt
+                    estado = 1
+                
+                elif (isNumero(txt)):
+                    txtTemp +=   txt
+                    estado = 1
+                else:
+                    print(txt)
+                    print("se reconocio en S1: '" + txtTemp + "' F: " + str(fila) + ", C: " + str(columna - len(txtTemp)))
+                    txtTemp = ""
+                    estado = 0
+                    continue
+                    
 
 
-        # Control de filas y columnas
-        # Salto de Linea
-        if (ord(txt) == 10):
-            columna = 1
-            fila += 1
-            continue
-        # Tab Horizontal
-        elif (ord(txt) == 9):
-            columna += 4
-            continue
-        # Espacio
-        elif (ord(txt) == 32):
-            columna += 1
-            continue
-        
-        columna += 1               
+
+            # Salto de Linea
+            if (ord(txt) == 10):
+                columna = 1
+                fila += 1
+                repetir = False
+                continue
+            # Tab Horizontal
+            elif (ord(txt) == 9):
+                columna += 4
+                repetir = False
+                continue
+            # Espacio
+            elif (ord(txt) == 32):
+                columna += 1
+                repetir = False
+                continue
+            repetir = False
+            columna += 1               
                        
        
 
