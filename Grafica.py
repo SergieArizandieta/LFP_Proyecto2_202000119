@@ -25,6 +25,7 @@ def ventanas():
             
 
         def OperarMasivo():
+            consola.config(state="normal")
             consola.delete("1.0", END)
             print("Masivo")
             TextoEditor = Editor.get("1.0", END)
@@ -34,6 +35,7 @@ def ventanas():
                 else:
                     print(text)
             consola.insert("1.0", TextoEditor)
+            consola.config(state="disabled")
             
 
         #Ventana-----------------------------------------------------------------------------------
@@ -56,6 +58,7 @@ def ventanas():
         Editor.place(x=50, y= 115)
 
         consola = scrolledtext.ScrolledText(ventana, undo=True, width=60,height=34,bg = "#FFF5D4",fg= "#000000")
+        consola.configure(state="disabled")
         consola['font'] = ('consolas', '12')
         consola.place(x=890, y= 115)
 
