@@ -54,7 +54,6 @@ def ObtencionTokens(texto):
                     estado = 0
                     continue
             elif estado ==2:
-                
                 print("se reconocio en S2: '" + txtTemp + "' F: " + str(fila) + ", C: " + str(columna - len(txtTemp)))
                 txtTemp = ""
                 estado = 0
