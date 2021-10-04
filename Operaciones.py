@@ -16,14 +16,19 @@ def ObtencionTokens(texto):
                     txtTemp += txt
                 elif isNumero(txt):
                     estado = 4
+                    txtTemp += txt
                 elif ord(txt) == 34: # "
                     estado = 3
+                    txtTemp += txt
                 elif isSimbolo(txt):
                     estado = 2
+                    txtTemp += txt
                 elif ord(txt) == 35: # #
                     estado = 5
+                    txtTemp += txt
                 elif ord(txt) == 39: # '
                     estado = 6
+                    txtTemp += txt
                 else:
 
                     if ord(txt) == 32 or ord(txt) == 10 or ord(txt) == 9 or txt == '~':
@@ -44,11 +49,22 @@ def ObtencionTokens(texto):
                     txtTemp +=   txt
                     estado = 1
                 else:
-                    print(txt)
                     print("se reconocio en S1: '" + txtTemp + "' F: " + str(fila) + ", C: " + str(columna - len(txtTemp)))
                     txtTemp = ""
                     estado = 0
                     continue
+            elif estado ==2:
+                
+                print("se reconocio en S2: '" + txtTemp + "' F: " + str(fila) + ", C: " + str(columna - len(txtTemp)))
+                txtTemp = ""
+                estado = 0
+                continue
+            elif estado ==3:
+                if ord(txt) != 34: # "
+                    txtTemp += txt
+                else:
+                    txtTemp += txt
+                    estado = 2
                     
 
 
@@ -83,7 +99,7 @@ def isLetra(txt):
         return False
 
 def isSimbolo(txt):
-    
+    #           =                    ;              {                   }                   [               ]                   ,    
     if(ord(txt) == 61 or ord(txt) == 59 or ord(txt) == 123 or ord(txt) == 125  or ord(txt) == 91 or ord(txt) == 93 or ord(txt) == 44):
         return True
     else:
