@@ -1,11 +1,13 @@
 
 def ObtencionTokens(texto):
+    multilinea = False
     repetir = True
     estado = 0
     txtTemp = ""
     columna = 1
     fila = 1
-
+    filamulti = 0
+    columnamulti = 0
 
     for txt in texto:
         repetir = True
@@ -14,21 +16,31 @@ def ObtencionTokens(texto):
                 if isLetra(txt):
                     estado = 1
                     txtTemp += txt
+                    multilinea = False
                 elif isNumero(txt):
                     estado = 4
                     txtTemp += txt
+                    multilinea = False
                 elif ord(txt) == 34: # "
                     estado = 3
                     txtTemp += txt
+                    multilinea = False
                 elif isSimbolo(txt):
                     estado = 2
                     txtTemp += txt
+                    multilinea = False
                 elif ord(txt) == 35: # #
                     estado = 5
                     txtTemp += txt
+                    multilinea = False
                 elif ord(txt) == 39: # '
-                    estado = 6
+                    multilinea = True
                     txtTemp += txt
+                    estado = 100
+
+                    filamulti = fila
+                    columnamulti = columna
+                    
                 else:
 
                     if ord(txt) == 32 or ord(txt) == 10 or ord(txt) == 9 or txt == '~':
@@ -36,6 +48,7 @@ def ObtencionTokens(texto):
                     else: 
                         print("Error Lexico, se detecto " + txt + " en S0  F: " + str(fila) + ", C: " + str(columna))
                         errortipo= 'Caracter inesperado, esperaba L|D|#|S|"|@' 
+            
             elif estado == 1:
                 if (isLetra(txt)):
                     txtTemp += txt
@@ -51,9 +64,12 @@ def ObtencionTokens(texto):
                     txtTemp = ""
                     estado = 0
                     continue
+           
             elif estado ==2:
-
-                print("se reconocio en S2: '" + txtTemp + "' F: " + str(fila) + ", C: " + str(columna - len(txtTemp)))
+                if multilinea == False:
+                    print("se reconocio en S2: '" + txtTemp + "' F: " + str(fila) + ", C: " + str(columna - len(txtTemp)))
+                else:
+                     print("se reconocio en S2: '" + txtTemp + "' F: " + str(filamulti) + ", C: " + str(columnamulti))
                 txtTemp = ""
                 estado = 0
                 continue
@@ -83,8 +99,14 @@ def ObtencionTokens(texto):
                     txtTemp += txt
                 else:
                     estado = 2  
+            
             elif estado ==6:
-                pass
+                if ord(txt) != 39: # '
+                    txtTemp += txt   
+                else:
+                    txtTemp += txt 
+                    estado = 200
+                     
             elif estado ==7:
 
                 if isNumero(txt):
@@ -100,7 +122,25 @@ def ObtencionTokens(texto):
                     estado = 0
                     continue        
 
-
+            elif estado == 100:
+                if ord(txt) == 39: # '
+                    txtTemp += txt
+                    estado = 101
+           
+            elif estado == 101:
+                if ord(txt) == 39: # '
+                    txtTemp += txt
+                    estado = 6
+         
+            elif estado == 200:
+                if ord(txt) == 39: # '
+                    txtTemp += txt
+                    estado = 201
+           
+            elif estado == 201:
+                if ord(txt) == 39: # '
+                    txtTemp += txt
+                    estado = 2
 
             # Salto de Linea
             if (ord(txt) == 10):
