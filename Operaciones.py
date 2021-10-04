@@ -79,7 +79,10 @@ def ObtencionTokens(texto):
                     continue
 
             elif estado ==5:
-                pass
+                if ord(txt) != 10: # "
+                    txtTemp += txt
+                else:
+                    estado = 2  
             elif estado ==6:
                 pass
             elif estado ==7:
