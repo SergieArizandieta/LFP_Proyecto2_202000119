@@ -40,7 +40,7 @@ def ventanas():
 
         def Analizar():
             TextoEditor = Editor.get("1.0", END)
-            op.ObtencionTokens(TextoEditor)
+            op.Analisis_Lexico(TextoEditor)
            
             
 

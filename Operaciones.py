@@ -2,7 +2,7 @@
 Token = []
 Errores = []
 
-def ObtencionTokens(texto):
+def Analisis_Lexico(texto):
     multilinea = False
     repetir = True
     estado = 0
@@ -64,7 +64,7 @@ def ObtencionTokens(texto):
                     txtTemp +=   txt
 
                 else:
-                    guardar("Identificador",fila,columna - len(txtTemp),txtTemp)
+                    guardarToken("Identificador",fila,columna - len(txtTemp),txtTemp)
                     print("se reconocio en S1: '" + txtTemp + "' F: " + str(fila) + ", C: " + str(columna - len(txtTemp)))
                     txtTemp = ""
                     estado = 0
@@ -74,7 +74,7 @@ def ObtencionTokens(texto):
                 if multilinea == False:
                     if simbolo:
                         simbolo = False
-                        guardar("Simbolo",fila,columna - len(txtTemp),txtTemp)
+                        guardarToken("Simbolo",fila,columna - len(txtTemp),txtTemp)
                     print("se reconocio en S2: '" + txtTemp + "' F: " + str(fila) + ", C: " + str(columna - len(txtTemp)))
                 else:
                     print("se reconocio en S2: '" + txtTemp + "' F: " + str(filamulti) + ", C: " + str(columnamulti))
@@ -97,7 +97,7 @@ def ObtencionTokens(texto):
                     txtTemp += txt
                     estado = 7
                 else:
-                    guardar("Digito",fila,columna - len(txtTemp),columnamulti)
+                    guardarToken("Digito",fila,columna - len(txtTemp),columnamulti)
                     print("Se reconocio en S4: '" + txtTemp + "' F: " + str(fila) + ", C: " + str(columna - len(txtTemp)))
                     txtTemp = ""
                     estado = 0
@@ -127,7 +127,7 @@ def ObtencionTokens(texto):
                 if isNumero(txt):
                     txtTemp += txt
                 else:
-                    guardar("Digito",fila,columna - len(txtTemp),columnamulti)
+                    guardarToken("Digito",fila,columna - len(txtTemp),columnamulti)
                     print("Se reconocio en S4: '" + txtTemp + "' F: " + str(fila) + ", C: " + str(columna - len(txtTemp)))
                     txtTemp = ""
                     estado = 0
@@ -175,10 +175,16 @@ def ObtencionTokens(texto):
     global Token
     for tet in Token:
         print(tet)
-  
-                     
-       
-def guardar(tipo,fila,columna,temp):
+    
+
+def Analisis_Sintactico():
+    pass 
+
+
+def guardarError():
+    pass
+
+def guardarToken(tipo,fila,columna,temp):
     texttemp = []
     texttemp.append(tipo)
     texttemp.append(fila)

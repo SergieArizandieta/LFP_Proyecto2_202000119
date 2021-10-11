@@ -11,7 +11,7 @@ if __name__ == "__main__":
         print('\n"Lectura exitosa"\n')
         texto += "~"
        
-        op.ObtencionTokens(texto)
+        op.Analisis_Lexico(texto)
 
     except Exception:
         
