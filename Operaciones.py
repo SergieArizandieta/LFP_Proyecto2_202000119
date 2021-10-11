@@ -1,4 +1,7 @@
 
+Token = []
+Errores = []
+
 def ObtencionTokens(texto):
     multilinea = False
     repetir = True
@@ -8,7 +11,7 @@ def ObtencionTokens(texto):
     fila = 1
     filamulti = 0
     columnamulti = 0
-
+    simbolo = False;
     for txt in texto:
         repetir = True
         while repetir:
@@ -22,6 +25,7 @@ def ObtencionTokens(texto):
                     txtTemp += txt
                     multilinea = False
                 elif ord(txt) == 34: # "
+                    simbolo = True
                     estado = 3
                     txtTemp += txt
                     multilinea = False
@@ -60,6 +64,7 @@ def ObtencionTokens(texto):
                     txtTemp +=   txt
 
                 else:
+                    guardar("Identificador",fila,columna - len(txtTemp),txtTemp)
                     print("se reconocio en S1: '" + txtTemp + "' F: " + str(fila) + ", C: " + str(columna - len(txtTemp)))
                     txtTemp = ""
                     estado = 0
@@ -67,9 +72,12 @@ def ObtencionTokens(texto):
            
             elif estado ==2:
                 if multilinea == False:
+                    if simbolo:
+                        simbolo = False
+                        guardar("Simbolo",fila,columna - len(txtTemp),txtTemp)
                     print("se reconocio en S2: '" + txtTemp + "' F: " + str(fila) + ", C: " + str(columna - len(txtTemp)))
                 else:
-                     print("se reconocio en S2: '" + txtTemp + "' F: " + str(filamulti) + ", C: " + str(columnamulti))
+                    print("se reconocio en S2: '" + txtTemp + "' F: " + str(filamulti) + ", C: " + str(columnamulti))
                 txtTemp = ""
                 estado = 0
                 continue
@@ -89,6 +97,7 @@ def ObtencionTokens(texto):
                     txtTemp += txt
                     estado = 7
                 else:
+                    guardar("Digito",fila,columna - len(txtTemp),columnamulti)
                     print("Se reconocio en S4: '" + txtTemp + "' F: " + str(fila) + ", C: " + str(columna - len(txtTemp)))
                     txtTemp = ""
                     estado = 0
@@ -98,7 +107,8 @@ def ObtencionTokens(texto):
                 if ord(txt) != 10: # "
                     txtTemp += txt
                 else:
-                    estado = 2  
+                    estado = 2 
+                    continue 
             
             elif estado ==6:
                 if ord(txt) != 39: # '
@@ -117,6 +127,7 @@ def ObtencionTokens(texto):
                 if isNumero(txt):
                     txtTemp += txt
                 else:
+                    guardar("Digito",fila,columna - len(txtTemp),columnamulti)
                     print("Se reconocio en S4: '" + txtTemp + "' F: " + str(fila) + ", C: " + str(columna - len(txtTemp)))
                     txtTemp = ""
                     estado = 0
@@ -160,9 +171,21 @@ def ObtencionTokens(texto):
                 continue
             repetir = False
             columna += 1               
-                       
-       
 
+    global Token
+    for tet in Token:
+        print(tet)
+  
+                     
+       
+def guardar(tipo,fila,columna,temp):
+    texttemp = []
+    texttemp.append(tipo)
+    texttemp.append(fila)
+    texttemp.append(columna)
+    texttemp.append(temp)
+    global Token
+    Token.append(texttemp)
 
 
 def isLetra(txt):
