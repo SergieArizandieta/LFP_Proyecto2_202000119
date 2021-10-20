@@ -9,6 +9,16 @@ class Humano:
     def AcrualizarEdad(self,edad):
        self.edad = edad
 
+class Humano3000:
+    def __init__(self,robor,ventiladores):
+        self.robot = robor
+        self.ventiladores = ventiladores
+
+    def hablar(self,mensaje):
+        print("soy un robot de:" , self.robot , " Y ",mensaje )
+
+
+"""
 if __name__ == "__main__":
     
     #try: 
@@ -42,6 +52,8 @@ if __name__ == "__main__":
         for i in humno:
             if i.correlativo == 5:
                 humno.remove(i)
+                
+                
                
         for i in humno:
             print("Humano:",i.correlativo, "de edad",i.edad  )
@@ -58,4 +70,4 @@ if __name__ == "__main__":
 
     #except Exception:
     #   pass
-     
+     """
