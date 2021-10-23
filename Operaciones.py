@@ -41,7 +41,6 @@ def Analisis_Lexico(texto):
                     multilinea = True
                     txtTemp += txt
                     estado = 100
-
                     filamulti = fila
                     columnamulti = columna
                     
@@ -173,8 +172,9 @@ def Analisis_Lexico(texto):
             columna += 1               
 
     global Token
-    for tet in Token:
-        print(tet)
+    print(Token)
+    #for tet in Token:
+      #  print(tet)
     
 
 def Analisis_Sintactico():
