@@ -1,8 +1,17 @@
 
+from os import error
+
+
 Token = []
 Errores = []
 
 def Analisis_Lexico(texto):
+    global Token
+    global Errores
+    Token[:] = []
+    Errores[:] = []
+
+    print("Analisis Lexico")
     multilinea = False
     repetir = True
     estado = 0
@@ -25,11 +34,12 @@ def Analisis_Lexico(texto):
                     txtTemp += txt
                     multilinea = False
                 elif ord(txt) == 34: # "
-                    simbolo = True
+                    
                     estado = 3
                     txtTemp += txt
                     multilinea = False
                 elif isSimbolo(txt):
+                    simbolo = True
                     estado = 2
                     txtTemp += txt
                     multilinea = False
@@ -50,7 +60,12 @@ def Analisis_Lexico(texto):
                         pass
                     else: 
                         print("Error Lexico, se detecto " + txt + " en S0  F: " + str(fila) + ", C: " + str(columna))
-                        errortipo= 'Caracter inesperado, esperaba L|D|#|S|"|@' 
+                        ErrorTemp= []
+                        ErrorTemp.append(txt)
+                        ErrorTemp.append("Error Lexico, caracter irreconocible")
+                        ErrorTemp.append(fila)
+                        ErrorTemp.append(columna)
+                        Errores.append(ErrorTemp)
             
             elif estado == 1:
                 if (isLetra(txt)):
@@ -74,6 +89,8 @@ def Analisis_Lexico(texto):
                     if simbolo:
                         simbolo = False
                         guardarToken("Simbolo",fila,columna - len(txtTemp),txtTemp)
+                    else:
+                        guardarToken("Registro",fila,columna - len(txtTemp),txtTemp)
                     print("se reconocio en S2: '" + txtTemp + "' F: " + str(fila) + ", C: " + str(columna - len(txtTemp)))
                 else:
                     print("se reconocio en S2: '" + txtTemp + "' F: " + str(filamulti) + ", C: " + str(columnamulti))
@@ -170,15 +187,29 @@ def Analisis_Lexico(texto):
                 continue
             repetir = False
             columna += 1               
-
-    global Token
-    print(Token)
+    print(len(Errores))
+    Analisis_Sintactico()
     #for tet in Token:
       #  print(tet)
-    
+
+import tkinter as tk 
+import easygui
+
+def popupmsg(msg, title):
+    easygui.msgbox(msg, title=title)
 
 def Analisis_Sintactico():
-    pass 
+
+    print("Analisis Sintactico")
+    global Token
+    global Errores
+    print(Token)
+    print("")
+    print(Errores) 
+
+    if len(Errores) >0 :
+        popupmsg("Hubieron errores en la lectura de caracteres, se omitieron dichos caracteres","Errores")
+   
 
 
 def guardarError():
