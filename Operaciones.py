@@ -6,8 +6,10 @@ Errores = []
 pila = []
 Claves = []
 cantidad_claves = 0
+cantidad_registro =0 
 Registros = []
 AllData = []
+textConsola = ""
 
 #analizador lexico  
 def Analisis_Lexico(texto):
@@ -296,6 +298,8 @@ def AsignacionC_gramar():
 def registros_gramar():
     global pila
     global Registros
+    global cantidad_registro
+    cantidad_registro = 0
 
     if pila[0][0] == "tk_logs":
         pila.pop(0) 
@@ -319,6 +323,9 @@ def registros_gramar():
         ErrrorSintactico("tk_CA",pila[0][1] ,pila[0][2] ,pila[0][0])
 
     AsignacionR_gramar()
+
+    for x in Registros:
+        cantidad_registro += len(x)
                   
 def AsignacionR_gramar():
     global pila
@@ -352,7 +359,7 @@ def AsignacionR_gramar():
 
         if pila[0][0] == "tk_LC" or  pila[0][0] == "tk_Coma":
             if pila[0][0] == "tk_LC":
-                guaradar = True
+                guaradar = True 
                 Registros.append(registrosTemp)
             pila.pop(0)
             #print(pila) 
@@ -382,28 +389,201 @@ def registrar_alldata():
     print("")
 
     for i in range(0,cantidad_claves):
-        AllData.append(Claves[i])
+        temp= []
+        temp.append(Claves[i])
+        
         for k in Registros:
-            AllData.append(k[i])
+            temp.append(k[i])
+        AllData.append(temp)
 
     print(AllData)
     print("")
 
 def  intrucciones_gramar():
-    global pila
-    print(pila) 
-    print("")
+    global textConsola
+    textConsola = ""
+    #validar = true
+    while(True):
+        try:
+            if pila[0][0] == "tk_print":
+                pila.pop(0)
+                imprimir_gramar()
+
+            elif pila[0][0] == "tk_println":
+                pila.pop(0)
+                imprimirln_gramar()
+                
+                
+            elif pila[0][0] == "tk_count":
+                pila.pop(0)
+                conteo_gramar()
+                
+                
+            elif pila[0][0] == "tk_avg":
+                pila.pop(0)
+                promedio_gramar()
+                
+            
+            elif pila[0][0] == "tk_contif":
+                pila.pop(0)
+                contarsi_gramar()
+                
+            
+            elif pila[0][0] == "tk_dat":
+                pila.pop(0)
+                datos_gramar()
+                break
+                
+            elif pila[0][0] == "tk_max":
+                pila.pop(0)
+                max_gramar()
+                
+            elif pila[0][0] == "tk_min":
+                pila.pop(0)
+                min_gramar()
+            
+            elif pila[0][0] == "tk_export":
+                pila.pop(0)
+                expReport_gramar()
+            else:
+                ErrrorSintactico("intruccion",pila[0][1] ,pila[0][2] ,pila[0][0])
+        except Exception:
+            print("Error, main")
+
 
 def imprimir_gramar():
-    pass
+    global textConsola
+    global pila
+
+    validar_PA_gramar()
+
+    if pila[0][0] == "Registro":
+        textConsola +=   pila[0][3].replace('"',"") 
+        pila.pop(0) 
+    else:
+        ErrrorSintactico("Registro",pila[0][1] ,pila[0][2] ,pila[0][0])
+
+    validar_PC_gramar()
+
+    validar_ptocoma_gramar()
+
 def imprimirln_gramar():
-    pass
+    global textConsola
+    global pila
+
+    validar_PA_gramar()
+
+    if pila[0][0] == "Registro":
+        textConsola +=  "\n"+  pila[0][3].replace('"',"") 
+        pila.pop(0) 
+    else:
+        ErrrorSintactico("Registro",pila[0][1] ,pila[0][2] ,pila[0][0])
+
+    validar_PC_gramar()
+
+    validar_ptocoma_gramar()
+    
 def conteo_gramar():
-    pass
+    global textConsola
+    global pila
+    global cantidad_registro
+
+
+    validar_PA_gramar()
+
+    validar_PC_gramar()
+
+    validar_ptocoma_gramar()
+
+    textConsola += "\n" + str(cantidad_registro)
+
 def promedio_gramar():
-    pass
+    global textConsola
+    global pila
+
+    validar_PA_gramar()
+
+    if pila[0][0] == "Registro":
+        textConsola += "\n" + str(hacer_promedio(pila[0][3]))
+        pila.pop(0) 
+
+    else:
+        ErrrorSintactico("Registro",pila[0][1] ,pila[0][2] ,pila[0][0])
+
+    validar_PC_gramar()
+
+    validar_ptocoma_gramar()
+
+    
+    print(pila) 
+    print("")
+    print(textConsola) 
+    print("")
+
+def hacer_promedio(data):
+    global AllData
+    print(data)
+    prom = 0
+    contador = 0
+    for i in AllData:
+        if i[0] == data:
+            for x in i:
+                if is_integer(x):
+                    contador += 1
+                    prom += int(x)
+            promedio = prom / contador
+            return promedio
+    return "No se encontro registro para el primedio"     
+
+
 def contarsi_gramar():
-    pass
+    global textConsola
+    global pila
+    registro= ""
+    validar_PA_gramar()
+
+    if pila[0][0] == "Registro":
+        registro = pila[0][3]
+        pila.pop(0) 
+
+    else:
+        ErrrorSintactico("Registro",pila[0][1] ,pila[0][2] ,pila[0][0])
+
+    if pila[0][0] == "tk_Coma":
+        pila.pop(0) 
+    else:
+        ErrrorSintactico("tk_Coma",pila[0][1] ,pila[0][2] ,pila[0][0])
+
+    if pila[0][0] == "Digito" or  pila[0][0] == "Registro":
+        valor = pila[0][3]
+        textConsola += "\n" + str(hacer_conteo(registro,valor))
+        pila.pop(0) 
+
+    else:
+        ErrrorSintactico("Registro | Digito",pila[0][1] ,pila[0][2] ,pila[0][0])
+
+    validar_PC_gramar()
+
+    validar_ptocoma_gramar()
+
+    
+    print(pila) 
+    print("")
+    print(textConsola) 
+    print("")
+
+def hacer_conteo(data,valor):
+    global AllData
+    print(data)
+    contador = 0
+    for i in AllData:
+        if i[0] == data:
+            for x in i:
+                if valor == x:
+                    contador += 1
+            return contador
+    return "No se encontro registro para el conteo"     
+
 def datos_gramar():
     pass
 def max_gramar():
@@ -413,6 +593,27 @@ def min_gramar():
 def expReport_gramar():
     pass
 
+def validar_ptocoma_gramar():
+    global pila
+    if pila[0][0] == "tk_PtoComa":
+        pila.pop(0) 
+    else:
+        ErrrorSintactico("tk_PtoComa",pila[0][1] ,pila[0][2] ,pila[0][0])
+
+def validar_PA_gramar():
+    global pila
+    if pila[0][0] == "tk_PA":
+        pila.pop(0) 
+    else:
+        ErrrorSintactico("tk_PA",pila[0][1] ,pila[0][2] ,pila[0][0])
+
+def validar_PC_gramar():
+    global pila
+    if pila[0][0] == "tk_PC":
+        pila.pop(0) 
+    else:
+        ErrrorSintactico("tk_PC",pila[0][1] ,pila[0][2] ,pila[0][0])
+        
 #error sintactico
 def ErrrorSintactico(tipo,fila,columna,data):
     global Errores
@@ -428,7 +629,7 @@ def ErrrorSintactico(tipo,fila,columna,data):
 #dar nombres a los tokensa reservados
 def redefinirTokens():
     PalabrasReservadas = [["Claves","tk_key"],["Registros","tk_logs"],["imprimir","tk_print"],["imprimirln","tk_println"],["conteo","tk_count"],["promedio","tk_avg"],["contarsi","tk_contif"],["datos","tk_dat"],["max","tk_max"],["min","tk_min"],["exportarReporte","tk_export"]]
-    SimbolosReservadas = [["=","tk_igual"],[";","tk_PtoComa"],["{","tk_LA"],["}","tk_LC"],["[","tk_CA"],["]","tk_CC"],[",","tk_Coma"],["(","tk_PA"],[")","PC"]]                                                                    
+    SimbolosReservadas = [["=","tk_igual"],[";","tk_PtoComa"],["{","tk_LA"],["}","tk_LC"],["[","tk_CA"],["]","tk_CC"],[",","tk_Coma"],["(","tk_PA"],[")","tk_PC"]]                                                                    
     global Token
     for tk in Token:
         txtTemp = str(tk[3])
@@ -475,4 +676,12 @@ def isNumero(txt):
     if ((ord(txt) >= 48 and ord(txt) <= 57)):
         return True
     else:
+        return False
+
+#numero entero
+def is_integer(string):
+    try: 
+        int(string)
+        return True
+    except ValueError:
         return False
