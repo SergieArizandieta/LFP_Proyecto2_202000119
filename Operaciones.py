@@ -1,5 +1,6 @@
 import easygui
 import copy
+from fpdf import FPDF
 
 Token = []
 Errores = []
@@ -222,7 +223,6 @@ def Analisis_Sintactico():
 
     inicio_gramar()   
     
-
 def inicio_gramar():
     global Registros
     global Claves
@@ -413,43 +413,50 @@ def  intrucciones_gramar():
                 pila.pop(0)
                 imprimirln_gramar()
                 
-                
             elif pila[0][0] == "tk_count":
                 pila.pop(0)
                 conteo_gramar()
                 
-                
             elif pila[0][0] == "tk_avg":
                 pila.pop(0)
                 promedio_gramar()
-                
-            
+                         
             elif pila[0][0] == "tk_contif":
                 pila.pop(0)
                 contarsi_gramar()
                 
-            
+            elif pila[0][0] == "tk_suma":
+                pila.pop(0)
+                sumar_gramar()
+                
             elif pila[0][0] == "tk_dat":
                 pila.pop(0)
                 datos_gramar()
-                break
-                
+                     
             elif pila[0][0] == "tk_max":
                 pila.pop(0)
                 max_gramar()
                 
+                
             elif pila[0][0] == "tk_min":
                 pila.pop(0)
                 min_gramar()
+                
             
             elif pila[0][0] == "tk_export":
                 pila.pop(0)
                 expReport_gramar()
+                break
             else:
+                print("Error")
+                print(pila) 
+                print("")
+                print(textConsola) 
+                print("")
                 ErrrorSintactico("intruccion",pila[0][1] ,pila[0][2] ,pila[0][0])
+                break
         except Exception:
             print("Error, main")
-
 
 def imprimir_gramar():
     global textConsola
@@ -513,16 +520,9 @@ def promedio_gramar():
     validar_PC_gramar()
 
     validar_ptocoma_gramar()
-
-    
-    print(pila) 
-    print("")
-    print(textConsola) 
-    print("")
-
+import pandas as pd
 def hacer_promedio(data):
     global AllData
-    print(data)
     prom = 0
     contador = 0
     for i in AllData:
@@ -530,11 +530,10 @@ def hacer_promedio(data):
             for x in i:
                 if is_integer(x):
                     contador += 1
-                    prom += int(x)
+                    prom += float(x)
             promedio = prom / contador
             return promedio
-    return "No se encontro registro para el primedio"     
-
+    return "No se encontro registro "     
 
 def contarsi_gramar():
     global textConsola
@@ -566,15 +565,8 @@ def contarsi_gramar():
 
     validar_ptocoma_gramar()
 
-    
-    print(pila) 
-    print("")
-    print(textConsola) 
-    print("")
-
 def hacer_conteo(data,valor):
     global AllData
-    print(data)
     contador = 0
     for i in AllData:
         if i[0] == data:
@@ -582,16 +574,155 @@ def hacer_conteo(data,valor):
                 if valor == x:
                     contador += 1
             return contador
-    return "No se encontro registro para el conteo"     
+    return "No se encontro registro"     
+
+def sumar_gramar():
+    global textConsola
+    global pila
+
+    validar_PA_gramar()
+
+    if pila[0][0] == "Registro":
+        textConsola += "\n" + str(hacer_suma(pila[0][3]))
+        pila.pop(0) 
+
+    else:
+        ErrrorSintactico("Registro",pila[0][1] ,pila[0][2] ,pila[0][0])
+
+    validar_PC_gramar()
+
+    validar_ptocoma_gramar()
+  
+def hacer_suma(data):
+    global AllData
+    suma = 0
+    for i in AllData:
+        if i[0] == data:
+            for x in i:
+                if is_integer(x):
+                    suma += float(x)
+            return suma
+    return "No se encontro registro"     
 
 def datos_gramar():
-    pass
+    global AllData
+    global Claves
+    global Registros
+    global textConsola
+    aux = 0
+    validar_PA_gramar()
+    textConsolas = textConsola
+    textConsolas += "\n"
+    for i in Claves:
+        textConsolas += i.replace('"',"")  + "\t"
+    
+    for x in Registros:
+        textConsolas += "\n"
+        for i in range (0,len(Registros)+1):
+    
+            
+        
+            if is_integer( x[i]):
+                textConsolas += str(x[i].replace('"',"")) +  "\t"
+            else:
+                textConsolas += x[i].replace('"',"")  + "\t"
+    
+    
+    data = []
+
+    for x in Registros:
+        temp = []
+        for i in x:
+            if is_integer(i):
+                temp.append(str(i))
+            else:
+                temp.append(i.replace('"',""))
+           
+        data.append(temp)
+
+    keys = []
+    for x in Claves:
+        keys.append(x.replace('"',""))
+
+    df = pd.DataFrame(data, columns = keys)
+    textConsola += "\n" + str(df)
+
+        
+    validar_PC_gramar()
+
+
+    validar_ptocoma_gramar()
+
 def max_gramar():
-    pass
+    global textConsola
+    global pila
+    validar_PA_gramar()
+
+    if pila[0][0] == "Registro":
+        textConsola += "\n" + str(hacer_max(pila[0][3]))
+        pila.pop(0) 
+
+    else:
+        ErrrorSintactico("Registro",pila[0][1] ,pila[0][2] ,pila[0][0])
+
+    validar_PC_gramar()
+
+    validar_ptocoma_gramar()
+
+def hacer_max(dato):
+    global AllData
+    mayor = 0
+    for i in AllData:
+        if i[0] == dato:
+            for x in i:
+   
+                if is_integer(x):
+                    if mayor<float(x):
+                        mayor = float(x)
+                
+            return mayor
+    return "No se encontro registro" 
+
 def min_gramar():
-    pass
+    global textConsola
+    global pila
+    validar_PA_gramar()
+
+    if pila[0][0] == "Registro":
+        textConsola += "\n" + str(hacer_min(pila[0][3]))
+        pila.pop(0) 
+
+    else:
+        ErrrorSintactico("Registro",pila[0][1] ,pila[0][2] ,pila[0][0])
+
+    validar_PC_gramar()
+
+    validar_ptocoma_gramar()
+
+
+    print(pila) 
+    print("")
+    print(textConsola) 
+    print("")
+
+def hacer_min(dato):
+    global AllData
+    menor = 99999999999999999999999
+    for i in AllData:
+        if i[0] == dato:
+            for x in i:
+   
+                if is_integer(x):
+                    if menor>float(x):
+                        menor = float(x)
+                
+            return menor
+    return "No se encontro registro" 
+
 def expReport_gramar():
-    pass
+    pdf = FPDF('P','mm','Letter')
+    pdf.add_page()
+    pdf.set_font
 
 def validar_ptocoma_gramar():
     global pila
@@ -628,7 +759,7 @@ def ErrrorSintactico(tipo,fila,columna,data):
     
 #dar nombres a los tokensa reservados
 def redefinirTokens():
-    PalabrasReservadas = [["Claves","tk_key"],["Registros","tk_logs"],["imprimir","tk_print"],["imprimirln","tk_println"],["conteo","tk_count"],["promedio","tk_avg"],["contarsi","tk_contif"],["datos","tk_dat"],["max","tk_max"],["min","tk_min"],["exportarReporte","tk_export"]]
+    PalabrasReservadas = [["Claves","tk_key"],["Registros","tk_logs"],["imprimir","tk_print"],["imprimirln","tk_println"],["conteo","tk_count"],["promedio","tk_avg"],["contarsi","tk_contif"],["datos","tk_dat"],["max","tk_max"],["min","tk_min"],["exportarReporte","tk_export"],["sumar","tk_suma"]]
     SimbolosReservadas = [["=","tk_igual"],[";","tk_PtoComa"],["{","tk_LA"],["}","tk_LC"],["[","tk_CA"],["]","tk_CC"],[",","tk_Coma"],["(","tk_PA"],[")","tk_PC"]]                                                                    
     global Token
     for tk in Token:
@@ -681,7 +812,9 @@ def isNumero(txt):
 #numero entero
 def is_integer(string):
     try: 
-        int(string)
+       
+        float(string)
         return True
     except ValueError:
         return False
+        

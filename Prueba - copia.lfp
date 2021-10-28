@@ -26,6 +26,8 @@ contarsi("stock",0);
 contarsi("stock",2);
 contarsi("stock",4);
 
+sumar("stock");
+
 datos();
 
 max("precio_venta");
@@ -33,6 +35,7 @@ max("precio_venta");
 min("precio_compra");
 
 exportarReporte("Reporte HTML de abattoreria")
+
 
 #Comentario
 
