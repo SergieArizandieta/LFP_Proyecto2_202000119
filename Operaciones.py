@@ -1,7 +1,7 @@
 import easygui
 import copy
 from fpdf import FPDF
-
+from tabla import tablas
 Token = []
 Errores = []
 pila = []
@@ -699,12 +699,6 @@ def min_gramar():
 
     validar_ptocoma_gramar()
 
-
-    print(pila) 
-    print("")
-    print(textConsola) 
-    print("")
-
 def hacer_min(dato):
     global AllData
     menor = 99999999999999999999999
@@ -720,9 +714,53 @@ def hacer_min(dato):
     return "No se encontro registro" 
 
 def expReport_gramar():
-    pdf = FPDF('P','mm','Letter')
-    pdf.add_page()
-    pdf.set_font
+    global Claves
+    global Registros
+
+    data = []
+    validar_PA_gramar()
+    if pila[0][0] == "Registro":
+        temp = []
+        temp.append(pila[0][3])
+
+        datatemp = []
+        for x in Registros:
+            temp = []
+            for i in x:
+                if is_integer(i):
+                    temp.append(str(i))
+                else:
+                    temp.append(i.replace('"',""))
+            
+            datatemp.append(temp)
+
+        keys = []
+        for x in Claves:
+            keys.append(x.replace('"',""))
+
+        data.append(temp)
+        data.append(keys)
+        for x in data:   
+            data.append(x)
+        pila.pop(0) 
+
+    else:
+        ErrrorSintactico("Registro",pila[0][1] ,pila[0][2] ,pila[0][0])
+
+
+
+    print(data)
+    tablas(data,'ExporteReporte.pdf')
+
+    validar_PC_gramar()
+    validar_ptocoma_gramar()
+
+    
+    print(pila) 
+    print("")
+    print(textConsola) 
+    print("")
+
 
 def validar_ptocoma_gramar():
     global pila

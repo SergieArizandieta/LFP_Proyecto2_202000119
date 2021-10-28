@@ -34,7 +34,7 @@ max("precio_venta");
 
 min("precio_compra");
 
-exportarReporte("Reporte HTML de abattoreria")
+exportarReporte("Reporte HTML de abattoreria");
 
 
 #Comentario
