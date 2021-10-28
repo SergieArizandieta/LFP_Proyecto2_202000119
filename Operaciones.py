@@ -609,7 +609,6 @@ def datos_gramar():
     global Claves
     global Registros
     global textConsola
-    aux = 0
     validar_PA_gramar()
     textConsolas = textConsola
     textConsolas += "\n"
@@ -716,40 +715,37 @@ def hacer_min(dato):
 def expReport_gramar():
     global Claves
     global Registros
-
+    global textConsola
     data = []
     validar_PA_gramar()
     if pila[0][0] == "Registro":
         temp = []
-        temp.append(pila[0][3])
-
+        temp.append(pila[0][3].replace('"',""))
+        data.append(temp)
         datatemp = []
+
         for x in Registros:
-            temp = []
+            temporal = []
             for i in x:
                 if is_integer(i):
-                    temp.append(str(i))
+                    temporal.append(str(i))
                 else:
-                    temp.append(i.replace('"',""))
+                    temporal.append(i.replace('"',""))
             
-            datatemp.append(temp)
-
+            datatemp.append(temporal)
+       
         keys = []
         for x in Claves:
             keys.append(x.replace('"',""))
-
-        data.append(temp)
         data.append(keys)
-        for x in data:   
-            data.append(x)
+        for x in datatemp:
+            data.append(x) 
+        textConsola += "\n" + "Se genero la exportacion del Reporte"
         pila.pop(0) 
 
     else:
         ErrrorSintactico("Registro",pila[0][1] ,pila[0][2] ,pila[0][0])
 
-
-
-    print(data)
     tablas(data,'ExporteReporte.pdf')
 
     validar_PC_gramar()
@@ -758,9 +754,8 @@ def expReport_gramar():
     
     print(pila) 
     print("")
-    print(textConsola) 
+    #print(textConsola) 
     print("")
-
 
 def validar_ptocoma_gramar():
     global pila

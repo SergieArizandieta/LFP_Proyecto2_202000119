@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import filedialog, Tk
 import tkinter.scrolledtext as scrolledtext
 import Operaciones as op
+
 Nombre = ""
 
 opcion = ["No data"]
@@ -29,9 +30,9 @@ def ventanas():
             consola.config(state="normal")
             consola.delete("1.0", END)
             print("Masivo")
-            TextoEditor = Editor.get("1.0", END)
-            
-            consola.insert("1.0", TextoEditor)
+      
+            print(op.textConsola) 
+            consola.insert("1.0", op.textConsola)
             consola.config(state="disabled")
 
         def Analizar():
