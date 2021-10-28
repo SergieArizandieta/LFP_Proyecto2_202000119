@@ -712,6 +712,8 @@ def hacer_min(dato):
             return menor
     return "No se encontro registro" 
 
+import webbrowser
+
 def expReport_gramar():
     global Claves
     global Registros
@@ -741,12 +743,15 @@ def expReport_gramar():
         for x in datatemp:
             data.append(x) 
         textConsola += "\n" + "Se genero la exportacion del Reporte"
+        path = 'ExporteReporte.pdf'
+        
+        tablas(data,'ExporteReporte.pdf')
+        webbrowser.open_new(path)
         pila.pop(0) 
 
     else:
         ErrrorSintactico("Registro",pila[0][1] ,pila[0][2] ,pila[0][0])
 
-    tablas(data,'ExporteReporte.pdf')
 
     validar_PC_gramar()
     validar_ptocoma_gramar()
