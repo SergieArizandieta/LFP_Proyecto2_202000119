@@ -5,15 +5,15 @@ import Grafica as g
 if __name__ == "__main__":
     
     try: 
-        Grafica.ventanas()
+        #Grafica.ventanas()
 
 
-        #texto = open("C:/Users/sergi/3D Objects/GitHub/LFP_Proyecto2_202000119/PruebaP.lfp", 'r',encoding="utf8" ).read()
+        texto = open("C:/Users/sergi/3D Objects/GitHub/LFP_Proyecto2_202000119/todos.lfp", 'r',encoding="utf8" ).read()
         #texto = open("C:/Users/sergi/3D Objects/GitHub/LFP_Proyecto2_202000119/todoerroes.lfp", 'r',encoding="utf8" ).read()
         #print('\n"Lectura exitosa"\n')
         #texto += "~" 
 
-        #op.Analisis_Lexico(texto)
+        op.Analisis_Lexico(texto)
 
     except Exception:
         

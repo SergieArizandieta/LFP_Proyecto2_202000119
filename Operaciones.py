@@ -2,6 +2,7 @@ import easygui
 import copy
 from fpdf import FPDF
 from tabla import tablas
+from os import system
 
 Token = []
 Errores = []
@@ -225,7 +226,7 @@ def Analisis_Sintactico():
     else:
         inicio_gramar() 
         print(textConsola) 
-
+        Genrar_ArbolDerivacion()
 
 #gramatica-------------------------------------------------------   
 def inicio_gramar():
@@ -885,6 +886,42 @@ def validar_PC_gramar():
         ErrrorSintactico("tk_PC, se remplazo el token",pila[0][1] ,pila[0][2] ,pila[0][0])
         pila.pop(0)
 #temina gramatica-------------------------------------------------------          
+
+#se genera el arbol
+def Genrar_ArbolDerivacion():
+    
+    graphviz = ""
+    graphviz +='''
+    graph L{
+    node[shape=oval fillcolor="#A181FF" style =filled]
+
+    subgraph cluster_p{
+    label= " Arbol de derivaiones "
+    bgcolor = "#FF7878"
+    raiz[label = "<inicio>" fillcolor="#FFD581" ]
+
+
+    Columna1[label="<Claves>"];
+    Columna2[label="<Registros>"];
+    Columna3[label="<Lins>"];
+
+    raiz--Columna1;
+    raiz--Columna2;
+    raiz--Columna3;
+    \n'''
+
+    graphviz += '''} }'''
+    ruta = "./Diagramas/"
+    DotName = "ReporteArbol_Derivacion.dot"
+    ImgName = "ReporteArbol_Derivacion.png"
+    rutacmdImg = "Diagramas/" + ImgName
+    rutacmdImg = '"' + rutacmdImg + '"'
+    
+    miArchivo= open(ruta + DotName,'w')
+    miArchivo.write(graphviz)
+    miArchivo.close()
+    system('dot -Tpng ' + ruta+  DotName + ' -o ' + ruta+ ImgName)
+    system('"' + rutacmdImg + '"\n')
 
 #error sintactico
 def ErrrorSintactico(tipo,fila,columna,data):

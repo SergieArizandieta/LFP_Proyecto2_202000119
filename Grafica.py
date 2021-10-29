@@ -57,8 +57,11 @@ def ventanas():
                 op.popupmsg("Se genero reporte Errores","Reporte")
                 ReporteTErrores()
             elif data == "Arbol de derivacion":
-                op.popupmsg("Se genero Arbol de derivacion","Reporte")
-                print("Arbol de derivacion")
+                if op.llenarclaves == False or op.llenarclaves == False:
+                    op.popupmsg("No se pudo genrar ya que hay errores sintacticos",'Error')
+                else:
+                    op.popupmsg("Se genero Arbol de derivacion","Reporte")
+                    print("Arbol de derivacion")
 
 
         #Ventana-----------------------------------------------------------------------------------

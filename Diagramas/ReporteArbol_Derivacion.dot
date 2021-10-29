@@ -1,0 +1,19 @@
+
+    graph L{
+    node[shape=oval fillcolor="#A181FF" style =filled]
+
+    subgraph cluster_p{
+    label= " Arbol de derivaiones "
+    bgcolor = "#FF7878"
+    raiz[label = "<inicio>" fillcolor="#FFD581" ]
+
+
+    Columna1[label="<Claves>"];
+    Columna2[label="<Registros>"];
+    Columna3[label="<Lins>"];
+
+    raiz--Columna1;
+    raiz--Columna2;
+    raiz--Columna3;
+    
+} }
