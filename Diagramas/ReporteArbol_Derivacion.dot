@@ -16,4 +16,325 @@
     raiz--Columna2;
     raiz--Columna3;
     
+
+    
+    nodo1_1_1[label="tk_Claves",fillcolor="#81FFDA"]
+    nodo1_2_1[label="tk_Igual",fillcolor="#81FFDA"]
+    nodo1_3_1[label="tk_CA",fillcolor="#81FFDA"]
+    nodo1_4_1[label="<asignacionC>",fillcolor="#81FFDA"]
+    nodo1_5_1[label="tk_CC",fillcolor="#81FFDA"]
+
+    Columna1--nodo1_1_1;
+    Columna1--nodo1_2_1;
+    Columna1--nodo1_3_1;
+    Columna1--nodo1_4_1;
+    Columna1--nodo1_5_1;
+    nodo1_4_2[label=" ''codigos''",fillcolor="#81FFDo"]
+nodo1_4_1--nodo1_4_2
+nodo1_4_3[label=" ,",fillcolor="#81FFDo"]
+nodo1_4_1--nodo1_4_3
+nodo1_4_4[label=" ''producto''",fillcolor="#81FFDo"]
+nodo1_4_1--nodo1_4_4
+nodo1_4_5[label=" ,",fillcolor="#81FFDo"]
+nodo1_4_1--nodo1_4_5
+nodo1_4_6[label=" ''precio_compra''",fillcolor="#81FFDo"]
+nodo1_4_1--nodo1_4_6
+nodo1_4_7[label=" ,",fillcolor="#81FFDo"]
+nodo1_4_1--nodo1_4_7
+nodo1_4_8[label=" ''precio_venta''",fillcolor="#81FFDo"]
+nodo1_4_1--nodo1_4_8
+nodo1_4_9[label=" ,",fillcolor="#81FFDo"]
+nodo1_4_1--nodo1_4_9
+nodo1_4_10[label=" ''stock''",fillcolor="#81FFDo"]
+nodo1_4_1--nodo1_4_10
+
+ nodo2_1_1[label="tk_Registro",fillcolor="#81FFDA"]
+    nodo2_2_1[label="tk_Igual",fillcolor="#81FFDA"]
+    nodo2_3_1[label="tk_CA",fillcolor="#81FFDA"]
+    nodo2_4_1[label="<asignacionR>",fillcolor="#81FFDA"]
+    nodo2_5_1[label="tk_CC",fillcolor="#81FFDA"]
+    
+    Columna2--nodo2_1_1;
+    Columna2--nodo2_2_1;
+    Columna2--nodo2_3_1;
+    Columna2--nodo2_4_1;
+    Columna2--nodo2_5_1;
+nodo2_4_2[label=" {",fillcolor="#81FFDo"]
+nodo2_4_1--nodo2_4_2
+nodo2_4_3[label=" 1",fillcolor="#81FFDo"]
+nodo2_4_1--nodo2_4_3
+nodo2_4_4[label=" ,",fillcolor="#81FFDo"]
+nodo2_4_1--nodo2_4_4
+nodo2_4_5[label=" ''Barbacoa''",fillcolor="#81FFDo"]
+nodo2_4_1--nodo2_4_5
+nodo2_4_6[label=" ,",fillcolor="#81FFDo"]
+nodo2_4_1--nodo2_4_6
+nodo2_4_7[label=" 10.50",fillcolor="#81FFDo"]
+nodo2_4_1--nodo2_4_7
+nodo2_4_8[label=" ,",fillcolor="#81FFDo"]
+nodo2_4_1--nodo2_4_8
+nodo2_4_9[label=" 20.00",fillcolor="#81FFDo"]
+nodo2_4_1--nodo2_4_9
+nodo2_4_10[label=" ,",fillcolor="#81FFDo"]
+nodo2_4_1--nodo2_4_10
+nodo2_4_11[label=" 6",fillcolor="#81FFDo"]
+nodo2_4_1--nodo2_4_11
+nodo2_4_12[label=" }",fillcolor="#81FFDo"]
+nodo2_4_1--nodo2_4_12
+nodo2_4_13[label=" {",fillcolor="#81FFDo"]
+nodo2_4_1--nodo2_4_13
+nodo2_4_14[label=" 2",fillcolor="#81FFDo"]
+nodo2_4_1--nodo2_4_14
+nodo2_4_15[label=" ,",fillcolor="#81FFDo"]
+nodo2_4_1--nodo2_4_15
+nodo2_4_16[label=" ''Salsa''",fillcolor="#81FFDo"]
+nodo2_4_1--nodo2_4_16
+nodo2_4_17[label=" ,",fillcolor="#81FFDo"]
+nodo2_4_1--nodo2_4_17
+nodo2_4_18[label=" 12.00",fillcolor="#81FFDo"]
+nodo2_4_1--nodo2_4_18
+nodo2_4_19[label=" ,",fillcolor="#81FFDo"]
+nodo2_4_1--nodo2_4_19
+nodo2_4_20[label=" 16.00",fillcolor="#81FFDo"]
+nodo2_4_1--nodo2_4_20
+nodo2_4_21[label=" ,",fillcolor="#81FFDo"]
+nodo2_4_1--nodo2_4_21
+nodo2_4_22[label=" 7",fillcolor="#81FFDo"]
+nodo2_4_1--nodo2_4_22
+nodo2_4_23[label=" }",fillcolor="#81FFDo"]
+nodo2_4_1--nodo2_4_23
+nodo2_4_24[label=" {",fillcolor="#81FFDo"]
+nodo2_4_1--nodo2_4_24
+nodo2_4_25[label=" 3",fillcolor="#81FFDo"]
+nodo2_4_1--nodo2_4_25
+nodo2_4_26[label=" ,",fillcolor="#81FFDo"]
+nodo2_4_1--nodo2_4_26
+nodo2_4_27[label=" ''Mayonesa''",fillcolor="#81FFDo"]
+nodo2_4_1--nodo2_4_27
+nodo2_4_28[label=" ,",fillcolor="#81FFDo"]
+nodo2_4_1--nodo2_4_28
+nodo2_4_29[label=" 15.00",fillcolor="#81FFDo"]
+nodo2_4_1--nodo2_4_29
+nodo2_4_30[label=" ,",fillcolor="#81FFDo"]
+nodo2_4_1--nodo2_4_30
+nodo2_4_31[label=" 18.00",fillcolor="#81FFDo"]
+nodo2_4_1--nodo2_4_31
+nodo2_4_32[label=" ,",fillcolor="#81FFDo"]
+nodo2_4_1--nodo2_4_32
+nodo2_4_33[label=" 4",fillcolor="#81FFDo"]
+nodo2_4_1--nodo2_4_33
+nodo2_4_34[label=" }",fillcolor="#81FFDo"]
+nodo2_4_1--nodo2_4_34
+nodo2_4_35[label=" {",fillcolor="#81FFDo"]
+nodo2_4_1--nodo2_4_35
+nodo2_4_36[label=" 4",fillcolor="#81FFDo"]
+nodo2_4_1--nodo2_4_36
+nodo2_4_37[label=" ,",fillcolor="#81FFDo"]
+nodo2_4_1--nodo2_4_37
+nodo2_4_38[label=" ''Mostaza''",fillcolor="#81FFDo"]
+nodo2_4_1--nodo2_4_38
+nodo2_4_39[label=" ,",fillcolor="#81FFDo"]
+nodo2_4_1--nodo2_4_39
+nodo2_4_40[label=" 14.00",fillcolor="#81FFDo"]
+nodo2_4_1--nodo2_4_40
+nodo2_4_41[label=" ,",fillcolor="#81FFDo"]
+nodo2_4_1--nodo2_4_41
+nodo2_4_42[label=" 16.00",fillcolor="#81FFDo"]
+nodo2_4_1--nodo2_4_42
+nodo2_4_43[label=" ,",fillcolor="#81FFDo"]
+nodo2_4_1--nodo2_4_43
+nodo2_4_44[label=" 4",fillcolor="#81FFDo"]
+nodo2_4_1--nodo2_4_44
+nodo2_4_45[label=" }",fillcolor="#81FFDo"]
+nodo2_4_1--nodo2_4_45
+nodo3_1_1[label="<imprimir>",fillcolor="#81FFDA"]
+Columna3--nodo3_1_1
+nodo3_1_0[label="imprimir",fillcolor="#81FFDA"]
+nodo3_1_1--nodo3_1_0
+nodo3_1_2[label="(",fillcolor="#81FFDA"]
+nodo3_1_1--nodo3_1_2
+nodo3_1_3[label="''Plantilla actual de: ''",fillcolor="#81FFDA"]
+nodo3_1_1--nodo3_1_3
+nodo3_1_4[label=")",fillcolor="#81FFDA"]
+nodo3_1_1--nodo3_1_4
+nodo3_1_5[label=";",fillcolor="#81FFDA"]
+nodo3_1_1--nodo3_1_5
+nodo3_2_1[label="<imprimirln>",fillcolor="#81FFDA"]
+Columna3--nodo3_2_1
+nodo3_2_0[label="imprimirln",fillcolor="#81FFDA"]
+nodo3_2_1--nodo3_2_0
+nodo3_2_2[label="(",fillcolor="#81FFDA"]
+nodo3_2_1--nodo3_2_2
+nodo3_2_3[label="''FC Bayern Munchen''",fillcolor="#81FFDA"]
+nodo3_2_1--nodo3_2_3
+nodo3_2_4[label=")",fillcolor="#81FFDA"]
+nodo3_2_1--nodo3_2_4
+nodo3_2_5[label=";",fillcolor="#81FFDA"]
+nodo3_2_1--nodo3_2_5
+nodo3_3_1[label="<imprimirln>",fillcolor="#81FFDA"]
+Columna3--nodo3_3_1
+nodo3_3_0[label="imprimirln",fillcolor="#81FFDA"]
+nodo3_3_1--nodo3_3_0
+nodo3_3_2[label="(",fillcolor="#81FFDA"]
+nodo3_3_1--nodo3_3_2
+nodo3_3_3[label="''conteos''",fillcolor="#81FFDA"]
+nodo3_3_1--nodo3_3_3
+nodo3_3_4[label=")",fillcolor="#81FFDA"]
+nodo3_3_1--nodo3_3_4
+nodo3_3_5[label=";",fillcolor="#81FFDA"]
+nodo3_3_1--nodo3_3_5
+nodo3_4_1[label="<conteo>",fillcolor="#81FFDA"]
+Columna3--nodo3_4_1
+nodo3_4_0[label="conteo",fillcolor="#81FFDA"]
+nodo3_4_1--nodo3_4_0
+nodo3_4_2[label="(",fillcolor="#81FFDA"]
+nodo3_4_1--nodo3_4_2
+nodo3_4_3[label=")",fillcolor="#81FFDA"]
+nodo3_4_1--nodo3_4_3
+nodo3_4_4[label=";",fillcolor="#81FFDA"]
+nodo3_4_1--nodo3_4_4
+nodo3_5_1[label="<imprimirln>",fillcolor="#81FFDA"]
+Columna3--nodo3_5_1
+nodo3_5_0[label="imprimirln",fillcolor="#81FFDA"]
+nodo3_5_1--nodo3_5_0
+nodo3_5_2[label="(",fillcolor="#81FFDA"]
+nodo3_5_1--nodo3_5_2
+nodo3_5_3[label="''promedio''",fillcolor="#81FFDA"]
+nodo3_5_1--nodo3_5_3
+nodo3_5_4[label=")",fillcolor="#81FFDA"]
+nodo3_5_1--nodo3_5_4
+nodo3_5_5[label=";",fillcolor="#81FFDA"]
+nodo3_5_1--nodo3_5_5
+nodo3_6_1[label="<promedio>",fillcolor="#81FFDA"]
+Columna3--nodo3_6_1
+nodo3_6_0[label="promedio",fillcolor="#81FFDA"]
+nodo3_6_1--nodo3_6_0
+nodo3_6_2[label="(",fillcolor="#81FFDA"]
+nodo3_6_1--nodo3_6_2
+nodo3_6_3[label="''stock''",fillcolor="#81FFDA"]
+nodo3_6_1--nodo3_6_3
+nodo3_6_4[label=")",fillcolor="#81FFDA"]
+nodo3_6_1--nodo3_6_4
+nodo3_6_5[label=";",fillcolor="#81FFDA"]
+nodo3_6_1--nodo3_6_5
+nodo3_7_1[label="<imprimirln>",fillcolor="#81FFDA"]
+Columna3--nodo3_7_1
+nodo3_7_0[label="imprimirln",fillcolor="#81FFDA"]
+nodo3_7_1--nodo3_7_0
+nodo3_7_2[label="(",fillcolor="#81FFDA"]
+nodo3_7_1--nodo3_7_2
+nodo3_7_3[label="''contar si''",fillcolor="#81FFDA"]
+nodo3_7_1--nodo3_7_3
+nodo3_7_4[label=")",fillcolor="#81FFDA"]
+nodo3_7_1--nodo3_7_4
+nodo3_7_5[label=";",fillcolor="#81FFDA"]
+nodo3_7_1--nodo3_7_5
+nodo3_8_1[label="<contarsi>",fillcolor="#81FFDA"]
+Columna3--nodo3_8_1
+nodo3_8_0[label="constarsi",fillcolor="#81FFDA"]
+nodo3_8_1--nodo3_8_0
+nodo3_8_2[label="(",fillcolor="#81FFDA"]
+nodo3_8_1--nodo3_8_2
+nodo3_8_3[label="''nacionalidad''",fillcolor="#81FFDA"]
+nodo3_8_1--nodo3_8_3
+nodo3_8_4[label="''Alemán''",fillcolor="#81FFDA"]
+nodo3_8_1--nodo3_8_4
+nodo3_8_5[label=")",fillcolor="#81FFDA"]
+nodo3_8_1--nodo3_8_5
+nodo3_8_6[label=";",fillcolor="#81FFDA"]
+nodo3_8_1--nodo3_8_6
+nodo3_9_1[label="<imprimirln>",fillcolor="#81FFDA"]
+Columna3--nodo3_9_1
+nodo3_9_0[label="imprimirln",fillcolor="#81FFDA"]
+nodo3_9_1--nodo3_9_0
+nodo3_9_2[label="(",fillcolor="#81FFDA"]
+nodo3_9_1--nodo3_9_2
+nodo3_9_3[label="''datos''",fillcolor="#81FFDA"]
+nodo3_9_1--nodo3_9_3
+nodo3_9_4[label=")",fillcolor="#81FFDA"]
+nodo3_9_1--nodo3_9_4
+nodo3_9_5[label=";",fillcolor="#81FFDA"]
+nodo3_9_1--nodo3_9_5
+nodo3_10_1[label="<datos>",fillcolor="#81FFDA"]
+Columna3--nodo3_10_1
+nodo3_10_0[label="datos",fillcolor="#81FFDA"]
+nodo3_10_1--nodo3_10_0
+nodo3_10_2[label="(",fillcolor="#81FFDA"]
+nodo3_10_1--nodo3_10_2
+nodo3_10_3[label=")",fillcolor="#81FFDA"]
+nodo3_10_1--nodo3_10_3
+nodo3_10_4[label=";",fillcolor="#81FFDA"]
+nodo3_10_1--nodo3_10_4
+nodo3_11_1[label="<imprimirln>",fillcolor="#81FFDA"]
+Columna3--nodo3_11_1
+nodo3_11_0[label="imprimirln",fillcolor="#81FFDA"]
+nodo3_11_1--nodo3_11_0
+nodo3_11_2[label="(",fillcolor="#81FFDA"]
+nodo3_11_1--nodo3_11_2
+nodo3_11_3[label="''sumar edades''",fillcolor="#81FFDA"]
+nodo3_11_1--nodo3_11_3
+nodo3_11_4[label=")",fillcolor="#81FFDA"]
+nodo3_11_1--nodo3_11_4
+nodo3_11_5[label=";",fillcolor="#81FFDA"]
+nodo3_11_1--nodo3_11_5
+nodo3_12_1[label="<suma>",fillcolor="#81FFDA"]
+Columna3--nodo3_12_1
+nodo3_12_0[label="suma",fillcolor="#81FFDA"]
+nodo3_12_1--nodo3_12_0
+nodo3_12_2[label="(",fillcolor="#81FFDA"]
+nodo3_12_1--nodo3_12_2
+nodo3_12_3[label="''stock''",fillcolor="#81FFDA"]
+nodo3_12_1--nodo3_12_3
+nodo3_12_4[label=")",fillcolor="#81FFDA"]
+nodo3_12_1--nodo3_12_4
+nodo3_12_5[label=";",fillcolor="#81FFDA"]
+nodo3_12_1--nodo3_12_5
+nodo3_13_1[label="<imprimirln>",fillcolor="#81FFDA"]
+Columna3--nodo3_13_1
+nodo3_13_0[label="imprimirln",fillcolor="#81FFDA"]
+nodo3_13_1--nodo3_13_0
+nodo3_13_2[label="(",fillcolor="#81FFDA"]
+nodo3_13_1--nodo3_13_2
+nodo3_13_3[label="''mayor stock''",fillcolor="#81FFDA"]
+nodo3_13_1--nodo3_13_3
+nodo3_13_4[label=")",fillcolor="#81FFDA"]
+nodo3_13_1--nodo3_13_4
+nodo3_13_5[label=";",fillcolor="#81FFDA"]
+nodo3_13_1--nodo3_13_5
+nodo3_14_1[label="<max>",fillcolor="#81FFDA"]
+Columna3--nodo3_14_1
+nodo3_14_0[label="max",fillcolor="#81FFDA"]
+nodo3_14_1--nodo3_14_0
+nodo3_14_2[label="(",fillcolor="#81FFDA"]
+nodo3_14_1--nodo3_14_2
+nodo3_14_3[label="''stock''",fillcolor="#81FFDA"]
+nodo3_14_1--nodo3_14_3
+nodo3_14_4[label=")",fillcolor="#81FFDA"]
+nodo3_14_1--nodo3_14_4
+nodo3_14_5[label=";",fillcolor="#81FFDA"]
+nodo3_14_1--nodo3_14_5
+nodo3_15_1[label="<imprimirln>",fillcolor="#81FFDA"]
+Columna3--nodo3_15_1
+nodo3_15_0[label="imprimirln",fillcolor="#81FFDA"]
+nodo3_15_1--nodo3_15_0
+nodo3_15_2[label="(",fillcolor="#81FFDA"]
+nodo3_15_1--nodo3_15_2
+nodo3_15_3[label="''menor stock''",fillcolor="#81FFDA"]
+nodo3_15_1--nodo3_15_3
+nodo3_15_4[label=")",fillcolor="#81FFDA"]
+nodo3_15_1--nodo3_15_4
+nodo3_15_5[label=";",fillcolor="#81FFDA"]
+nodo3_15_1--nodo3_15_5
+nodo3_16_1[label="<min>",fillcolor="#81FFDA"]
+Columna3--nodo3_16_1
+nodo3_16_0[label="min",fillcolor="#81FFDA"]
+nodo3_16_1--nodo3_16_0
+nodo3_16_2[label="(",fillcolor="#81FFDA"]
+nodo3_16_1--nodo3_16_2
+nodo3_16_3[label="''stock''",fillcolor="#81FFDA"]
+nodo3_16_1--nodo3_16_3
+nodo3_16_4[label=")",fillcolor="#81FFDA"]
+nodo3_16_1--nodo3_16_4
+nodo3_16_5[label=";",fillcolor="#81FFDA"]
+nodo3_16_1--nodo3_16_5
 } }

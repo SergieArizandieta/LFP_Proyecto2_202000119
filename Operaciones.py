@@ -13,7 +13,7 @@ cantidad_registro =0
 Registros = []
 AllData = []
 textConsola = ""
-
+graphviz = ""
 #analizador lexico  
 def Analisis_Lexico(texto):
     global Token
@@ -232,9 +232,40 @@ def Analisis_Sintactico():
 def inicio_gramar():
     global Registros
     global Claves
+    global graphviz
     Registros[:] = []
     Claves[:] = []
+    graphviz +='''
+    graph L{
+    node[shape=oval fillcolor="#A181FF" style =filled]
 
+    subgraph cluster_p{
+    label= " Arbol de derivaiones "
+    bgcolor = "#FF7878"
+    raiz[label = "<inicio>" fillcolor="#FFD581" ]
+
+
+    Columna1[label="<Claves>"];
+    Columna2[label="<Registros>"];
+    Columna3[label="<Lins>"];
+
+    raiz--Columna1;
+    raiz--Columna2;
+    raiz--Columna3;
+    \n
+    
+    nodo1_1_1[label="tk_Claves",fillcolor="#81FFDA"]
+    nodo1_2_1[label="tk_Igual",fillcolor="#81FFDA"]
+    nodo1_3_1[label="tk_CA",fillcolor="#81FFDA"]
+    nodo1_4_1[label="<asignacionC>",fillcolor="#81FFDA"]
+    nodo1_5_1[label="tk_CC",fillcolor="#81FFDA"]
+
+    Columna1--nodo1_1_1;
+    Columna1--nodo1_2_1;
+    Columna1--nodo1_3_1;
+    Columna1--nodo1_4_1;
+    Columna1--nodo1_5_1;
+    '''
     claves_gramar()
     registros_gramar()
     registrar_alldata()
@@ -281,10 +312,15 @@ def claves_gramar():
 def AsignacionC_gramar():
     global pila
     global Claves
+    global graphviz
+    contador = 2
     while(True):
 
         if pila[0][0] == "Registro":
             Claves.append(pila[0][3])
+            graphviz += 'nodo1_4_'+ str(contador) + '[label=" ' + str(pila[0][3].replace('"',"''")) +  '",fillcolor="#81FFDo"]\n'
+            graphviz +='nodo1_4_1--nodo1_4_' + str(contador) + "\n"
+            contador +=1
             pila.pop(0)
             #print(pila) 
             #print("")
@@ -307,6 +343,9 @@ def AsignacionC_gramar():
             break
         
         if pila[0][0] == "tk_Coma":
+            graphviz += 'nodo1_4_'+ str(contador) + '[label=" ' + str(pila[0][3].replace('"',"''")) +  '",fillcolor="#81FFDo"]\n'
+            graphviz +='nodo1_4_1--nodo1_4_' + str(contador) + "\n"
+            contador +=1
             pila.pop(0)
             #print(pila) 
             #print("")
@@ -324,7 +363,19 @@ def registros_gramar():
     cantidad_registro = 0
     global llenarregistro
     llenarregistro = True
+    global graphviz
+    graphviz+= '''\n nodo2_1_1[label="tk_Registro",fillcolor="#81FFDA"]
+    nodo2_2_1[label="tk_Igual",fillcolor="#81FFDA"]
+    nodo2_3_1[label="tk_CA",fillcolor="#81FFDA"]
+    nodo2_4_1[label="<asignacionR>",fillcolor="#81FFDA"]
+    nodo2_5_1[label="tk_CC",fillcolor="#81FFDA"]
     
+    Columna2--nodo2_1_1;
+    Columna2--nodo2_2_1;
+    Columna2--nodo2_3_1;
+    Columna2--nodo2_4_1;
+    Columna2--nodo2_5_1;\n'''
+        
 
     if pila[0][0] == "tk_logs":
         pila.pop(0) 
@@ -380,8 +431,10 @@ def AsignacionR_gramar():
     global pila
     global Registros
     global malosRegistro 
+    global graphviz
     guaradar = True
     resguardar = False
+    contador = 2
 
 
     while(True):
@@ -393,6 +446,9 @@ def AsignacionR_gramar():
                 if pila[0][0] == "tk_LA":
                     registrosTemp = []
                     resguardar = True
+                    graphviz += 'nodo2_4_'+ str(contador) + '[label=" ' + str(pila[0][3].replace('"',"''")) +  '",fillcolor="#81FFDo"]\n'
+                    graphviz +='nodo2_4_1--nodo2_4_' + str(contador) + "\n"
+                    contador +=1
                 
                 guaradar = False
                 pila.pop(0)
@@ -409,6 +465,9 @@ def AsignacionR_gramar():
             if resguardar:
                 resguardar
                 registrosTemp.append(pila[0][3])
+                graphviz += 'nodo2_4_'+ str(contador) + '[label=" ' + str(pila[0][3].replace('"',"''")) +  '",fillcolor="#81FFDo"]\n'
+                graphviz +='nodo2_4_1--nodo2_4_' + str(contador) + "\n"
+                contador +=1
                 pila.pop(0)
                 #print(pila) 
                 #print("")
@@ -422,6 +481,10 @@ def AsignacionR_gramar():
             if pila[0][0] == "tk_LC":
                 guaradar = True 
                 Registros.append(registrosTemp)
+
+            graphviz += 'nodo2_4_'+ str(contador) + '[label=" ' + str(pila[0][3].replace('"',"''")) +  '",fillcolor="#81FFDo"]\n'
+            graphviz +='nodo2_4_1--nodo2_4_' + str(contador) + "\n"
+            contador +=1
             pila.pop(0)
             #print(pila) 
             #print("")
@@ -463,54 +526,126 @@ def registrar_alldata():
     print(AllData)
     print("")
 
+
+conteointrucciones = 1
+conteosubinstrucciones = 2
 def  intrucciones_gramar():
     global textConsola
     textConsola = ""
+    global graphviz
+    global conteointrucciones
+    global conteosubinstrucciones
+    #graphviz += 'nodo2_4_'+ str(contador) + '[label=" ' + str(pila[0][3].replace('"',"''")) +  '",fillcolor="#81FFDo"]\n'
+    #graphviz +='nodo2_4_1--nodo2_4_' + str(contador) + "\n"
+    #contador +=1
 
     #validar = true
     while(True):
         try:
             if pila[0][0] == "tk_print":
+                graphviz += 'nodo3_' + str(conteointrucciones) + '_1' + '[label="<imprimir>",fillcolor="#81FFDA"]\n'
+                graphviz +='Columna3--nodo3_' + str(conteointrucciones) + "_1\n"
+                
+                graphviz += 'nodo3_' + str(conteointrucciones) + '_0' + '[label="imprimir",fillcolor="#81FFDA"]\n'
+                graphviz +='nodo3_' + str(conteointrucciones) + '_1' + '--nodo3_' + str(conteointrucciones) + "_0\n"
+                
                 pila.pop(0)
                 imprimir_gramar()
+                conteointrucciones +=1
+                conteosubinstrucciones = 2
                 
             elif pila[0][0] == "tk_println":
+                graphviz += 'nodo3_' + str(conteointrucciones) + '_1' + '[label="<imprimirln>",fillcolor="#81FFDA"]\n'
+                graphviz +='Columna3--nodo3_' + str(conteointrucciones) + "_1\n"
+                graphviz += 'nodo3_' + str(conteointrucciones) + '_0' + '[label="imprimirln",fillcolor="#81FFDA"]\n'
+                graphviz +='nodo3_' + str(conteointrucciones) + '_1' + '--nodo3_' + str(conteointrucciones) + "_0\n"
                 pila.pop(0)
                 imprimirln_gramar()
+                conteointrucciones +=1
+                conteosubinstrucciones = 2
                 
             elif pila[0][0] == "tk_count":
+                graphviz += 'nodo3_' + str(conteointrucciones) + '_1' + '[label="<conteo>",fillcolor="#81FFDA"]\n'
+                graphviz +='Columna3--nodo3_' + str(conteointrucciones) + "_1\n"
+                graphviz += 'nodo3_' + str(conteointrucciones) + '_0' + '[label="conteo",fillcolor="#81FFDA"]\n'
+                graphviz +='nodo3_' + str(conteointrucciones) + '_1' + '--nodo3_' + str(conteointrucciones) + "_0\n"
                 pila.pop(0)
                 conteo_gramar()
+                conteointrucciones +=1
+                conteosubinstrucciones = 2
                 
             elif pila[0][0] == "tk_avg":
+                graphviz += 'nodo3_' + str(conteointrucciones) + '_1' + '[label="<promedio>",fillcolor="#81FFDA"]\n'
+                graphviz +='Columna3--nodo3_' + str(conteointrucciones) + "_1\n"
+                graphviz += 'nodo3_' + str(conteointrucciones) + '_0' + '[label="promedio",fillcolor="#81FFDA"]\n'
+                graphviz +='nodo3_' + str(conteointrucciones) + '_1' + '--nodo3_' + str(conteointrucciones) + "_0\n"
                 pila.pop(0)
                 promedio_gramar()
+                conteointrucciones +=1
+                conteosubinstrucciones = 2
                          
             elif pila[0][0] == "tk_contif":
+                graphviz += 'nodo3_' + str(conteointrucciones) + '_1' + '[label="<contarsi>",fillcolor="#81FFDA"]\n'
+                graphviz +='Columna3--nodo3_' + str(conteointrucciones) + "_1\n"
+                graphviz += 'nodo3_' + str(conteointrucciones) + '_0' + '[label="constarsi",fillcolor="#81FFDA"]\n'
+                graphviz +='nodo3_' + str(conteointrucciones) + '_1' + '--nodo3_' + str(conteointrucciones) + "_0\n"
                 pila.pop(0)
                 contarsi_gramar()
+                conteointrucciones +=1
+                conteosubinstrucciones = 2
                 
             elif pila[0][0] == "tk_suma":
+
+                graphviz += 'nodo3_' + str(conteointrucciones) + '_1' + '[label="<suma>",fillcolor="#81FFDA"]\n'
+                graphviz +='Columna3--nodo3_' + str(conteointrucciones) + "_1\n"
+                graphviz += 'nodo3_' + str(conteointrucciones) + '_0' + '[label="suma",fillcolor="#81FFDA"]\n'
+                graphviz +='nodo3_' + str(conteointrucciones) + '_1' + '--nodo3_' + str(conteointrucciones) + "_0\n"
                 pila.pop(0)
                 sumar_gramar()
+                conteointrucciones +=1
+                conteosubinstrucciones = 2
                 
             elif pila[0][0] == "tk_dat":
+                graphviz += 'nodo3_' + str(conteointrucciones) + '_1' + '[label="<datos>",fillcolor="#81FFDA"]\n'
+                graphviz +='Columna3--nodo3_' + str(conteointrucciones) + "_1\n"
+                graphviz += 'nodo3_' + str(conteointrucciones) + '_0' + '[label="datos",fillcolor="#81FFDA"]\n'
+                graphviz +='nodo3_' + str(conteointrucciones) + '_1' + '--nodo3_' + str(conteointrucciones) + "_0\n"
                 pila.pop(0)
                 datos_gramar()
+                conteointrucciones +=1
+                conteosubinstrucciones = 2
                 
 
             elif pila[0][0] == "tk_max":
+                graphviz += 'nodo3_' + str(conteointrucciones) + '_1' + '[label="<max>",fillcolor="#81FFDA"]\n'
+                graphviz +='Columna3--nodo3_' + str(conteointrucciones) + "_1\n"
+                graphviz += 'nodo3_' + str(conteointrucciones) + '_0' + '[label="max",fillcolor="#81FFDA"]\n'
+                graphviz +='nodo3_' + str(conteointrucciones) + '_1' + '--nodo3_' + str(conteointrucciones) + "_0\n"
                 pila.pop(0)
                 max_gramar()
+                conteointrucciones +=1
+                conteosubinstrucciones = 2
                 
             elif pila[0][0] == "tk_min":
+                graphviz += 'nodo3_' + str(conteointrucciones) + '_1' + '[label="<min>",fillcolor="#81FFDA"]\n'
+                graphviz +='Columna3--nodo3_' + str(conteointrucciones) + "_1\n"
+                graphviz += 'nodo3_' + str(conteointrucciones) + '_0' + '[label="min",fillcolor="#81FFDA"]\n'
+                graphviz +='nodo3_' + str(conteointrucciones) + '_1' + '--nodo3_' + str(conteointrucciones) + "_0\n"
                 pila.pop(0)
                 min_gramar()
+                conteointrucciones +=1
+                conteosubinstrucciones = 2
                 
             elif pila[0][0] == "tk_export":
+                graphviz += 'nodo3_' + str(conteointrucciones) + '_1' + '[label="<exportarReporte>",fillcolor="#81FFDA"]\n'
+                graphviz +='Columna3--nodo3_' + str(conteointrucciones) + "_1\n"
+                graphviz += 'nodo3_' + str(conteointrucciones) + '_0' + '[label="exportarReporte",fillcolor="#81FFDA"]\n'
+                graphviz +='nodo3_' + str(conteointrucciones) + '_1' + '--nodo3_' + str(conteointrucciones) + "_0\n"
                 pila.pop(0)
                 expReport_gramar()
-                break
+                conteointrucciones +=1
+                conteosubinstrucciones = 2
+                
             else:
                 print("Error")
                 #print(pila) 
@@ -529,11 +664,17 @@ def  intrucciones_gramar():
 def imprimir_gramar():
     global textConsola
     global pila
+    global graphviz
+    global conteointrucciones
+    global conteosubinstrucciones
 
     validar_PA_gramar()
 
     if pila[0][0] == "Registro":
         textConsola +=   pila[0][3].replace('"',"") 
+        graphviz += 'nodo3_' + str(conteointrucciones) + '_' + str(conteosubinstrucciones) + '[label="' + str(pila[0][3].replace('"',"''")) +'",fillcolor="#81FFDA"]\n'
+        graphviz +='nodo3_' + str(conteointrucciones) +'_1' + '--nodo3_' + str(conteointrucciones) + "_" + str(conteosubinstrucciones) + "\n"
+        conteosubinstrucciones +=1
         pila.pop(0) 
     else:
         
@@ -548,11 +689,17 @@ def imprimir_gramar():
 def imprimirln_gramar():
     global textConsola
     global pila
+    global graphviz
+    global conteointrucciones
+    global conteosubinstrucciones
 
     validar_PA_gramar()
 
     if pila[0][0] == "Registro":
         textConsola +=  "\n"+  pila[0][3].replace('"',"") 
+        graphviz += 'nodo3_' + str(conteointrucciones) + '_' + str(conteosubinstrucciones) + '[label="' + str(pila[0][3].replace('"',"''")) +'",fillcolor="#81FFDA"]\n'
+        graphviz +='nodo3_' + str(conteointrucciones) +'_1' + '--nodo3_' + str(conteointrucciones) + "_" + str(conteosubinstrucciones) + "\n"
+        conteosubinstrucciones +=1
         pila.pop(0) 
     else:
         
@@ -580,11 +727,16 @@ def conteo_gramar():
 def promedio_gramar():
     global textConsola
     global pila
-
+    global graphviz
+    global conteointrucciones
+    global conteosubinstrucciones
     validar_PA_gramar()
 
     if pila[0][0] == "Registro":
         textConsola += "\n" + str(hacer_promedio(pila[0][3]))
+        graphviz += 'nodo3_' + str(conteointrucciones) + '_' + str(conteosubinstrucciones) + '[label="' + str(pila[0][3].replace('"',"''")) +'",fillcolor="#81FFDA"]\n'
+        graphviz +='nodo3_' + str(conteointrucciones) +'_1' + '--nodo3_' + str(conteointrucciones) + "_" + str(conteosubinstrucciones) + "\n"
+        conteosubinstrucciones +=1
         pila.pop(0) 
 
     else:
@@ -618,11 +770,17 @@ def hacer_promedio(data):
 def contarsi_gramar():
     global textConsola
     global pila
+    global graphviz
+    global conteointrucciones
+    global conteosubinstrucciones
     registro= ""
     validar_PA_gramar()
 
     if pila[0][0] == "Registro":
         registro = pila[0][3]
+        graphviz += 'nodo3_' + str(conteointrucciones) + '_' + str(conteosubinstrucciones) + '[label="' + str(pila[0][3].replace('"',"''")) +'",fillcolor="#81FFDA"]\n'
+        graphviz +='nodo3_' + str(conteointrucciones) +'_1' + '--nodo3_' + str(conteointrucciones) + "_" + str(conteosubinstrucciones) + "\n"
+        conteosubinstrucciones +=1
         pila.pop(0) 
 
     else:
@@ -638,6 +796,9 @@ def contarsi_gramar():
     if pila[0][0] == "Digito" or  pila[0][0] == "Registro":
         valor = pila[0][3]
         textConsola += "\n" + str(hacer_conteo(registro,valor))
+        graphviz += 'nodo3_' + str(conteointrucciones) + '_' + str(conteosubinstrucciones) + '[label="' + str(pila[0][3].replace('"',"''")) +'",fillcolor="#81FFDA"]\n'
+        graphviz +='nodo3_' + str(conteointrucciones) +'_1' + '--nodo3_' + str(conteointrucciones) + "_" + str(conteosubinstrucciones) + "\n"
+        conteosubinstrucciones +=1
         pila.pop(0) 
 
     else:
@@ -662,11 +823,17 @@ def hacer_conteo(data,valor):
 def sumar_gramar():
     global textConsola
     global pila
+    global graphviz
+    global conteointrucciones
+    global conteosubinstrucciones
 
     validar_PA_gramar()
 
     if pila[0][0] == "Registro":
         textConsola += "\n" + str(hacer_suma(pila[0][3]))
+        graphviz += 'nodo3_' + str(conteointrucciones) + '_' + str(conteosubinstrucciones) + '[label="' + str(pila[0][3].replace('"',"''")) +'",fillcolor="#81FFDA"]\n'
+        graphviz +='nodo3_' + str(conteointrucciones) +'_1' + '--nodo3_' + str(conteointrucciones) + "_" + str(conteosubinstrucciones) + "\n"
+        conteosubinstrucciones +=1
         pila.pop(0) 
 
     else:
@@ -746,10 +913,16 @@ def datos_gramar():
 def max_gramar():
     global textConsola
     global pila
+    global graphviz
+    global conteointrucciones
+    global conteosubinstrucciones
     validar_PA_gramar()
 
     if pila[0][0] == "Registro":
         textConsola += "\n" + str(hacer_max(pila[0][3]))
+        graphviz += 'nodo3_' + str(conteointrucciones) + '_' + str(conteosubinstrucciones) + '[label="' + str(pila[0][3].replace('"',"''")) +'",fillcolor="#81FFDA"]\n'
+        graphviz +='nodo3_' + str(conteointrucciones) +'_1' + '--nodo3_' + str(conteointrucciones) + "_" + str(conteosubinstrucciones) + "\n"
+        conteosubinstrucciones +=1
         pila.pop(0) 
 
     else:
@@ -780,10 +953,16 @@ def hacer_max(dato):
 def min_gramar():
     global textConsola
     global pila
+    global graphviz
+    global conteointrucciones
+    global conteosubinstrucciones
     validar_PA_gramar()
 
     if pila[0][0] == "Registro":
         textConsola += "\n" + str(hacer_min(pila[0][3]))
+        graphviz += 'nodo3_' + str(conteointrucciones) + '_' + str(conteosubinstrucciones) + '[label="' + str(pila[0][3].replace('"',"''")) +'",fillcolor="#81FFDA"]\n'
+        graphviz +='nodo3_' + str(conteointrucciones) +'_1' + '--nodo3_' + str(conteointrucciones) + "_" + str(conteosubinstrucciones) + "\n"
+        conteosubinstrucciones +=1
         pila.pop(0) 
 
     else:
@@ -817,11 +996,17 @@ def expReport_gramar():
     global Claves
     global Registros
     global textConsola
+    global graphviz
+    global conteointrucciones
+    global conteosubinstrucciones
     data = []
     validar_PA_gramar()
     if pila[0][0] == "Registro":
         temp = []
         temp.append(pila[0][3].replace('"',""))
+        graphviz += 'nodo3_' + str(conteointrucciones) + '_' + str(conteosubinstrucciones) + '[label="' + str(pila[0][3].replace('"',"''")) +'",fillcolor="#81FFDA"]\n'
+        graphviz +='nodo3_' + str(conteointrucciones) +'_1' + '--nodo3_' + str(conteointrucciones) + "_" + str(conteosubinstrucciones) + "\n"
+        conteosubinstrucciones +=1
         data.append(temp)
         datatemp = []
 
@@ -864,15 +1049,28 @@ def expReport_gramar():
 
 def validar_ptocoma_gramar():
     global pila
+    global conteointrucciones
+    global graphviz
+    global conteosubinstrucciones
+
     if pila[0][0] == "tk_PtoComa":
-        pila.pop(0) 
+        pila.pop(0)
+        graphviz += 'nodo3_' + str(conteointrucciones) + '_' + str(conteosubinstrucciones) + '[label=";",fillcolor="#81FFDA"]\n'
+        graphviz +='nodo3_' + str(conteointrucciones) +'_1' + '--nodo3_' + str(conteointrucciones) + "_" + str(conteosubinstrucciones) + "\n"
+        conteosubinstrucciones +=1
     else:
         ErrrorSintactico("tk_PtoComa, se remplazo el token",pila[0][1] ,pila[0][2] ,pila[0][0])
         pila.pop(0) 
 
 def validar_PA_gramar():
     global pila
+    global conteointrucciones
+    global graphviz
+    global conteosubinstrucciones
     if pila[0][0] == "tk_PA":
+        graphviz += 'nodo3_' + str(conteointrucciones) + '_' + str(conteosubinstrucciones) + '[label="(",fillcolor="#81FFDA"]\n'
+        graphviz +='nodo3_' + str(conteointrucciones) +'_1' + '--nodo3_' + str(conteointrucciones) + "_" + str(conteosubinstrucciones) + "\n"
+        conteosubinstrucciones +=1
         pila.pop(0) 
     else:
         ErrrorSintactico("tk_PA, se remplazo el token",pila[0][1] ,pila[0][2] ,pila[0][0])
@@ -880,7 +1078,13 @@ def validar_PA_gramar():
 
 def validar_PC_gramar():
     global pila
+    global conteointrucciones
+    global graphviz
+    global conteosubinstrucciones
     if pila[0][0] == "tk_PC":
+        graphviz += 'nodo3_' + str(conteointrucciones) + '_' + str(conteosubinstrucciones) + '[label=")",fillcolor="#81FFDA"]\n'
+        graphviz +='nodo3_' + str(conteointrucciones) +'_1' + '--nodo3_' + str(conteointrucciones) + "_" + str(conteosubinstrucciones) + "\n"
+        conteosubinstrucciones +=1
         pila.pop(0) 
     else:
         ErrrorSintactico("tk_PC, se remplazo el token",pila[0][1] ,pila[0][2] ,pila[0][0])
@@ -890,25 +1094,8 @@ def validar_PC_gramar():
 #se genera el arbol
 def Genrar_ArbolDerivacion():
     
-    graphviz = ""
-    graphviz +='''
-    graph L{
-    node[shape=oval fillcolor="#A181FF" style =filled]
-
-    subgraph cluster_p{
-    label= " Arbol de derivaiones "
-    bgcolor = "#FF7878"
-    raiz[label = "<inicio>" fillcolor="#FFD581" ]
-
-
-    Columna1[label="<Claves>"];
-    Columna2[label="<Registros>"];
-    Columna3[label="<Lins>"];
-
-    raiz--Columna1;
-    raiz--Columna2;
-    raiz--Columna3;
-    \n'''
+    global graphviz
+  
 
     graphviz += '''} }'''
     ruta = "./Diagramas/"

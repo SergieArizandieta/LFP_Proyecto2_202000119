@@ -16,25 +16,25 @@ imprimir("Plantilla actual de: ");
 imprimirln("FC Bayern Munchen");
 
 imprimirln("conteos");
-#conteo();
+conteo();
 
 imprimirln("promedio");
-#promedio("edad");
+promedio("stock");
 
 imprimirln("contar si");
-#contarsi("nacionalidad", "Alemán"); 
+contarsi("nacionalidad", "Alemán"); 
 
 imprimirln("datos");
-#datos();
+datos();
 
 imprimirln("sumar edades");
-#sumar("edad");
+sumar("stock");
 
-imprimirln("mayor edad");
-#max("edad");
+imprimirln("mayor stock");
+max("stock");
 
-imprimirln("menor edad");
-#min("edad");
+imprimirln("menor stock");
+min("stock");
 
 #exportarReporte("titulo");
 
