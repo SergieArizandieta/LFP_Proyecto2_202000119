@@ -1,0 +1,60 @@
+'''
+Claves = [
+	"Estas", "claves", "no", "valen", "porque",
+	"la", "sección", "está", "comentada", ":v"
+]
+'''
+
+# Esto no tiene errores
+Claves = ["dorsal", "nombre", "apellido", "nacionalidad", "edad"]
+
+# Esto no tiene errores, creo... :v
+Registros = [
+	{1, "Manuel", "Neuer", "Alemán", 35}{26, "Sven", "Ulreich", "Alemán", 33}{36, "Christian", "Früchtl", "Alemán", 21}
+	{2, "Dayot", "Upamecano", "Francés", 22}{3, "Omar", "Richards", "Inglés", 23}{4, "Niklas", "Süle", "Alemán", 26}{5, "Benjamin", "Pavard", "Francés", 25} {19,"Alphonso", "Davies", "Canadiense", 20}{20, "Bouna", "Sarr", "Francés", 29}{21, "Lucas", "Hernández", "Francés", 25}{23, "Tanguy", "Nianzou", "Francés", 19} {44, "Josip", "Stanisic", "Croata", 21}
+	{6, "Joshua", "Kimmich", "Alemán", 26}{8, "Leon", "Goretzka", "Alemán", 26}{17, "Michaël", "Cuisance", "Francés", 22}{18, "Marcel", "Sabitzer", "Austriaco", 27} {22, "Marc", "Rosa", "Español", 24}{24, "Corentin", "Tolisso", "Francés", 27}
+	{7, "Serge", "Gnabry", "Alemán", 26}{9, "Robert", "Lewandowski", "Polaco", 33}{10, "Leroy", "Sané", "Alemán", 25}{11, "Kingsley", "Coman", "Francés", 25} {13,"Eric", "Choupo-Moting", "Camerunés", 32}{25, "Thomas", "Müller", "Alemán", 32}{42, "Jamal", "Musiala", "Alemán", 18}
+]
+
+
+'''
+	### Sección de Errores ###
+'''
+
+# @@@@ # Si se descomenta se tendría uno o mas error léxico, por lo que solamente se deberia de completar el analisis léxico y nada mas.
+
+# Si se descomenta se tendría un error sintáctico, por lo que solo se debe terminar el analisis sintactico y no ejecutar nada mas :v
+# imprimirLn("El Ln con L mayusucula es el error"); 
+# sumar("El } del final son el error, ademas de que todo este campo entre comillas no existe"};
+
+
+
+'''
+	### Sección de Reportes ###
+'''
+
+datos();
+
+# Esto deberia de imprimir una sola linea: "Plantilla actual de: FC Bayern Munchen" (todo junto y sin comillas)
+imprimir("Plantilla actual de: ");
+imprimirln("FC Bayern Munchen");
+
+imprimir("Muchos de ellos estaban cuando el equipo destruyó 2 - 8 al todo poderoso Barcelona de Messi, ");
+imprimir("pero también faltan Perisic, Coutinho y Alaba que contribuyeron con goles al humillante marcador en ese partido (aunque Alaba marco autogol).");
+
+# Esto lo deberia de imprimir en 2 lineas distintas
+# El valor de conteo() debe ser 25... creo :v
+imprimirln("Los jugadores totales en la plantilla son: ");
+conteo();
+
+
+# El resultado de promedio() debe de ser 25.68... creo :v
+imprimirln("");
+imprimirln("El promedio de edad es: ");
+promedio("edad");
+
+
+imprimirln("");
+imprimirln("El total de jugadores alemanes es: ");
+contarsi("nacionalidad", "Alemán"); # El resultado es 10
+# contarsi("nacionalidad", "Aleman"); # El resultado es 0 porque en los registros Aleman tiene tilde.

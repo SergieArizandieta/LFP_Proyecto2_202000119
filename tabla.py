@@ -5,7 +5,7 @@ from reportlab.platypus import TableStyle
 from reportlab.lib import colors
 
 def tablas(datos,nombre):
-    print("table")
+   
     data = datos
 
     NameFile = nombre

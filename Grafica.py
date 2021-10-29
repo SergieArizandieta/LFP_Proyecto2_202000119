@@ -1,8 +1,9 @@
 from tkinter import * 
+from tkinter import ttk
 from tkinter import filedialog, Tk
 import tkinter.scrolledtext as scrolledtext
 import Operaciones as op
-
+from reportes import ReporteTokens, ReporteTErrores
 Nombre = ""
 
 opcion = ["No data"]
@@ -29,9 +30,13 @@ def ventanas():
         def mostrarConsola():
             consola.config(state="normal")
             consola.delete("1.0", END)
-            print("Masivo")
+            #print("Masivo")
       
             print(op.textConsola) 
+            if op.llenarclaves == False or op.llenarclaves == False:
+                op.textConsola = "Hay errores sintacticos, resviasar reporte de Errores"
+                
+            
             consola.insert("1.0", op.textConsola)
             consola.config(state="disabled")
 
@@ -40,7 +45,18 @@ def ventanas():
             op.Analisis_Lexico(TextoEditor)
             mostrarConsola()
            
-            
+        def GeneraraRequerido():
+            data = ComboReportes.get()
+            if data == "Reporte Token":
+                print("Reporte token")
+                ReporteTokens()  
+        
+            elif data ==  "Reporte Error":
+                print("Reportye Errores")
+                ReporteTErrores()
+            elif data == "Arbol de derivacion":
+                print("Arbol de derivacion")
+
 
         #Ventana-----------------------------------------------------------------------------------
      
@@ -50,9 +66,19 @@ def ventanas():
         Label(ventana,text = "Proyecto 2 - 202000119",fg="Gray",font=("Popins",12)).place(x=10, y =25)
         Button(ventana,text="Abrir",command= OptenerTextoArxhivo).place(x=1000, y =25)
         Button(ventana,text="Analizar",command= Analizar).place(x=1050, y =25)
-        Button(ventana,text="Reportes",command= mostrarConsola).place(x=1120, y =25)
+        Button(ventana,text="Generar",command= GeneraraRequerido).place(x=1300, y =25)
         Label(ventana,text = linea,fg="Gray",font=("Popins",12)).place(x=15, y= 50)
         #Terminar Encabezado ------------------------------------------------------------------------------------
+        ComboReportes =  ttk.Combobox(ventana, 
+                            values=[
+                                    "Reporte Token", 
+                                    "Reporte Error",
+                                    "Arbol de derivacion"],state="readonly")
+        ComboReportes.place(x=1120, y= 25)
+        #ImagenesCombo.pack( pady=200,)
+        ComboReportes.current()
+
+       
         #Cuerpo-----------------------------------------------------------------------------------
         Label(ventana,text = "Editor:",fg="Gray",font=("Popins",12)).place(x=50, y= 75)
         Label(ventana,text = "Consola:",fg="Gray",font=("Popins",12)).place(x=890, y= 80)

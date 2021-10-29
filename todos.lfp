@@ -1,0 +1,35 @@
+Claves = ["dorsal", "nombre", "apellido", "nacionalidad", "edad"]
+
+Registros = [
+	{1, "Manuel", "Neuer", "Alemán", 35}{26, "Sven", "Ulreich", "Alemán", 33}{36, "Christian", "Früchtl", "Alemán", 21}
+	{2, "Dayot", "Upamecano", "Francés", 22}{3, "Omar", "Richards", "Inglés", 23}{4, "Niklas", "Süle", "Alemán", 26}{5, "Benjamin", "Pavard", "Francés", 25} {19,"Alphonso", "Davies", "Canadiense", 20}{20, "Bouna", "Sarr", "Francés", 29}{21, "Lucas", "Hernández", "Francés", 25}{23, "Tanguy", "Nianzou", "Francés", 19} {44, "Josip", "Stanisic", "Croata", 21}
+	{6, "Joshua", "Kimmich", "Alemán", 26}{8, "Leon", "Goretzka", "Alemán", 26}{17, "Michaël", "Cuisance", "Francés", 22}{18, "Marcel", "Sabitzer", "Austriaco", 27} {22, "Marc", "Rosa", "Español", 24}{24, "Corentin", "Tolisso", "Francés", 27}
+	{7, "Serge", "Gnabry", "Alemán", 26}{9, "Robert", "Lewandowski", "Polaco", 33}{10, "Leroy", "Sané", "Alemán", 25}{11, "Kingsley", "Coman", "Francés", 25} {13,"Eric", "Choupo-Moting", "Camerunés", 32}{25, "Thomas", "Müller", "Alemán", 32}{42, "Jamal", "Musiala", "Alemán", 18}
+]
+
+imprimir("Plantilla actual de: ");
+imprimirln("FC Bayern Munchen");
+
+imprimirln("conteos");
+conteo();
+
+imprimirln("promedio");
+promedio("edad");
+
+imprimirln("contar si");
+contarsi("nacionalidad", "Alemán"); 
+
+imprimirln("datos");
+datos();
+
+imprimirln("sumar edades");
+sumar("edad");
+
+imprimirln("mayor edad");
+max("edad");
+
+imprimirln("menor edad");
+min("edad");
+
+#exportarReporte("titulo");
+

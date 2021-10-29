@@ -2,6 +2,7 @@ import easygui
 import copy
 from fpdf import FPDF
 from tabla import tablas
+
 Token = []
 Errores = []
 pila = []
@@ -197,7 +198,7 @@ def Analisis_Lexico(texto):
                 continue
             repetir = False
             columna += 1               
-    print(len(Errores))
+    #print(len(Errores))
     redefinirTokens()
     Analisis_Sintactico()
     #for tet in Token:
@@ -217,12 +218,16 @@ def Analisis_Sintactico():
     print("")
     print(pila) 
     print("")
-
+    global textConsola
     if len(Errores) >0 :
         popupmsg("Hubieron errores en la lectura de caracteres, se omitieron dichos caracteres","Errores")
+        print(Errores)
+    else:
+        inicio_gramar() 
+        print(textConsola) 
 
-    inicio_gramar()   
-    
+
+#gramatica-------------------------------------------------------   
 def inicio_gramar():
     global Registros
     global Claves
@@ -234,32 +239,40 @@ def inicio_gramar():
     registrar_alldata()
     intrucciones_gramar()
 
+llenarclaves = True
 def claves_gramar():
     global pila
- 
+    global llenarclaves
+    llenarclaves = True
 
     if pila[0][0] == "tk_key":
         pila.pop(0) 
         #print(pila) 
         #print("")
     else:
-        ErrrorSintactico("tk_key",pila[0][1] ,pila[0][2] ,pila[0][0])
-
-    if pila[0][0] == "tk_igual":
+        llenarclaves = False
+        ErrrorSintactico("tk_key, se omitio token",pila[0][1] ,pila[0][2] ,pila[0][0])
         pila.pop(0)
-        #print(pila) 
-        #print("")
-    else:
-        ErrrorSintactico("tk_igual",pila[0][1] ,pila[0][2] ,pila[0][0])
 
-    if pila[0][0] == "tk_CA":
-        pila.pop(0)
-        #print(pila) 
-        #print("")
-    else:
-        ErrrorSintactico("tk_CA",pila[0][1] ,pila[0][2] ,pila[0][0])
-   
-    AsignacionC_gramar()
+    if llenarclaves:
+        if pila[0][0] == "tk_igual":
+            pila.pop(0)
+            #print(pila) 
+            #print("")
+        else:
+            ErrrorSintactico("tk_igual, se remplazo el token",pila[0][1] ,pila[0][2] ,pila[0][0])
+            pila.pop(0)
+
+        if pila[0][0] == "tk_CA":
+            pila.pop(0)
+            #print(pila) 
+            #print("")
+        else:
+            ErrrorSintactico("tk_CA, se remplazo el token",pila[0][1] ,pila[0][2] ,pila[0][0])
+            pila.pop(0)
+    
+    
+        AsignacionC_gramar()
 
     global cantidad_claves
     cantidad_claves = len(Claves)
@@ -276,7 +289,15 @@ def AsignacionC_gramar():
             #print("")
             
         else:
-            ErrrorSintactico("Registro",pila[0][1] ,pila[0][2] ,pila[0][0])
+           
+            ErrrorSintactico("Registro, se omitio token",pila[0][1] ,pila[0][2] ,pila[0][0])
+            pila.pop(0)
+            continue
+
+        if pila[0][0] != "Registro" and pila[0][0] != "tk_CC" and pila[0][0] != "tk_Coma":
+            ErrrorSintactico("tk_Coma|tk_CC|Registro, se omitio token",pila[0][1] ,pila[0][2] ,pila[0][0])
+            pila.pop(0)
+            break
         
         if pila[0][0] == "tk_CC":
             pila.pop(0)
@@ -289,49 +310,79 @@ def AsignacionC_gramar():
             #print(pila) 
             #print("")
         else:
-            ErrrorSintactico("tk_Coma",pila[0][1] ,pila[0][2] ,pila[0][0])
+            ErrrorSintactico("tk_Coma, se rempazo token",pila[0][1] ,pila[0][2] ,pila[0][0])
+            pila.pop(0)
+            continue
 
-        if pila[0][0] != "Registro" and pila[0][0] != "tk_CC" and pila[0][0] != "tk_Coma":
-            ErrrorSintactico("tk_Coma|tk_CC|Registro",pila[0][1] ,pila[0][2] ,pila[0][0])
-            break
-
+llenarregistro = True
 def registros_gramar():
     global pila
     global Registros
+    global Claves
     global cantidad_registro
     cantidad_registro = 0
+    global llenarregistro
+    llenarregistro = True
+    
 
     if pila[0][0] == "tk_logs":
         pila.pop(0) 
         #print(pila) 
         #print("")
     else:
-        ErrrorSintactico("tk_logs",pila[0][1] ,pila[0][2] ,pila[0][0])
+        llenarregistro = False
+        ErrrorSintactico("tk_logs, se omitio token",pila[0][1] ,pila[0][2] ,pila[0][0])
+    if llenarregistro:
+        if pila[0][0] == "tk_igual":
+            pila.pop(0)
+            #print(pila) 
+            #print("")
+        else:
+            ErrrorSintactico("tk_igual, se remplzo token",pila[0][1] ,pila[0][2] ,pila[0][0])
+            pila.pop(0)
 
-    if pila[0][0] == "tk_igual":
-        pila.pop(0)
-        #print(pila) 
-        #print("")
-    else:
-        ErrrorSintactico("tk_igual",pila[0][1] ,pila[0][2] ,pila[0][0])
+        if pila[0][0] == "tk_CA":
+            pila.pop(0)
+            #print(pila) 
+            #print("")
+        else:
+            ErrrorSintactico("tk_CA, se remplzo token",pila[0][1] ,pila[0][2] ,pila[0][0])
+            pila.pop(0)
 
-    if pila[0][0] == "tk_CA":
-        pila.pop(0)
-        #print(pila) 
-        #print("")
-    else:
-        ErrrorSintactico("tk_CA",pila[0][1] ,pila[0][2] ,pila[0][0])
+        
+        AsignacionR_gramar()
 
-    AsignacionR_gramar()
+        if malosRegistro:
+            Registros = []
 
-    for x in Registros:
-        cantidad_registro += len(x)
-                  
+        
+        registrosTempP = []
+        
+        for x in Registros:
+            registrosTemp = []
+            for i in range(0,len(Claves)):
+                try:
+                    registrosTemp.append(x[i])
+                except Exception:
+                    registrosTemp.append('')
+    
+            registrosTempP.append(registrosTemp)
+
+        print(registrosTempP)
+
+        Registros = copy.deepcopy(registrosTempP)
+        for x in Registros:
+            cantidad_registro += len(x)
+
+malosRegistro = False     
 def AsignacionR_gramar():
     global pila
     global Registros
+    global malosRegistro 
     guaradar = True
-    
+    resguardar = False
+
+
     while(True):
         if guaradar:
             if pila[0][0] == "tk_LA" or pila[0][0] == "tk_CC":   
@@ -340,22 +391,31 @@ def AsignacionR_gramar():
                     break
                 if pila[0][0] == "tk_LA":
                     registrosTemp = []
+                    resguardar = True
+                
                 guaradar = False
                 pila.pop(0)
                 #print(pila) 
                 #print("")
             else:
-                ErrrorSintactico("tk_LA",pila[0][1] ,pila[0][2] ,pila[0][0])
+               
+                ErrrorSintactico("tk_LA|tk_CC, se omition token",pila[0][1] ,pila[0][2] ,pila[0][0])
+                pila.pop(0)
+                continue
         
 
         if pila[0][0] == "Digito" or pila[0][0] == "Registro":
-            registrosTemp.append(pila[0][3])
-            pila.pop(0)
-            #print(pila) 
-            #print("")
+            if resguardar:
+                resguardar
+                registrosTemp.append(pila[0][3])
+                pila.pop(0)
+                #print(pila) 
+                #print("")
             
         else:
-            ErrrorSintactico("Digito | Registro",pila[0][1] ,pila[0][2] ,pila[0][0])
+            ErrrorSintactico("Digito | Registro, se omitio token",pila[0][1] ,pila[0][2] ,pila[0][0])
+           
+            malosRegistro = True
 
         if pila[0][0] == "tk_LC" or  pila[0][0] == "tk_Coma":
             if pila[0][0] == "tk_LC":
@@ -366,11 +426,13 @@ def AsignacionR_gramar():
             #print("")
 
         else:
-            ErrrorSintactico("tk_LC | tk_Coma",pila[0][1] ,pila[0][2] ,pila[0][0])
-
+            ErrrorSintactico("tk_LC | tk_Coma, se omitio token",pila[0][1] ,pila[0][2] ,pila[0][0])
+            malosRegistro = True
 
         if pila[0][0] != "tk_LA" and pila[0][0] != "Digito"   and pila[0][0] != "Registro" and pila[0][0] != "tk_CC" and pila[0][0] != "tk_LC" and pila[0][0] != "tk_Coma":
             ErrrorSintactico("tk_Coma|tk_CC|Registro",pila[0][1] ,pila[0][2] ,pila[0][0])
+            malosRegistro = True
+            pila.pop(0)
             break  
 
 def registrar_alldata():
@@ -382,11 +444,12 @@ def registrar_alldata():
 
     #print(cantidad_claves)
     #print("")
+    print(Claves)
+    print("")
     print(Registros)
     print("")
 
-    print(Claves)
-    print("")
+  
 
     for i in range(0,cantidad_claves):
         temp= []
@@ -402,13 +465,14 @@ def registrar_alldata():
 def  intrucciones_gramar():
     global textConsola
     textConsola = ""
+
     #validar = true
     while(True):
         try:
             if pila[0][0] == "tk_print":
                 pila.pop(0)
                 imprimir_gramar()
-
+                
             elif pila[0][0] == "tk_println":
                 pila.pop(0)
                 imprimirln_gramar()
@@ -432,31 +496,34 @@ def  intrucciones_gramar():
             elif pila[0][0] == "tk_dat":
                 pila.pop(0)
                 datos_gramar()
-                     
+                
+
             elif pila[0][0] == "tk_max":
                 pila.pop(0)
                 max_gramar()
-                
                 
             elif pila[0][0] == "tk_min":
                 pila.pop(0)
                 min_gramar()
                 
-            
             elif pila[0][0] == "tk_export":
                 pila.pop(0)
                 expReport_gramar()
                 break
             else:
                 print("Error")
-                print(pila) 
+                #print(pila) 
                 print("")
-                print(textConsola) 
+                #print(textConsola) 
                 print("")
-                ErrrorSintactico("intruccion",pila[0][1] ,pila[0][2] ,pila[0][0])
-                break
+                ErrrorSintactico("intruccion, se omitio token",pila[0][1] ,pila[0][2] ,pila[0][0])
+                pila.pop(0)
+                
         except Exception:
-            print("Error, main")
+            print("no hya mas datos")
+            #print(textConsola) 
+            #print("Error, main")
+            break
 
 def imprimir_gramar():
     global textConsola
@@ -468,7 +535,10 @@ def imprimir_gramar():
         textConsola +=   pila[0][3].replace('"',"") 
         pila.pop(0) 
     else:
-        ErrrorSintactico("Registro",pila[0][1] ,pila[0][2] ,pila[0][0])
+        
+        ErrrorSintactico("Registro, se omitio token",pila[0][1] ,pila[0][2] ,pila[0][0])
+        pila.pop(0)
+        
 
     validar_PC_gramar()
 
@@ -484,7 +554,9 @@ def imprimirln_gramar():
         textConsola +=  "\n"+  pila[0][3].replace('"',"") 
         pila.pop(0) 
     else:
-        ErrrorSintactico("Registro",pila[0][1] ,pila[0][2] ,pila[0][0])
+        
+        ErrrorSintactico("Registro, se omitio token",pila[0][1] ,pila[0][2] ,pila[0][0])
+        pila.pop(0)
 
     validar_PC_gramar()
 
@@ -515,12 +587,16 @@ def promedio_gramar():
         pila.pop(0) 
 
     else:
-        ErrrorSintactico("Registro",pila[0][1] ,pila[0][2] ,pila[0][0])
+         
+        ErrrorSintactico("Registro, se omitio token",pila[0][1] ,pila[0][2] ,pila[0][0])
+        pila.pop(0)
 
     validar_PC_gramar()
 
     validar_ptocoma_gramar()
+
 import pandas as pd
+
 def hacer_promedio(data):
     global AllData
     prom = 0
@@ -531,6 +607,9 @@ def hacer_promedio(data):
                 if is_integer(x):
                     contador += 1
                     prom += float(x)
+                else:
+                    if x != data:
+                        return "No todos los registros son numericos" 
             promedio = prom / contador
             return promedio
     return "No se encontro registro "     
@@ -546,7 +625,9 @@ def contarsi_gramar():
         pila.pop(0) 
 
     else:
-        ErrrorSintactico("Registro",pila[0][1] ,pila[0][2] ,pila[0][0])
+        
+        ErrrorSintactico("Registro, se omitio token",pila[0][1] ,pila[0][2] ,pila[0][0])
+        pila.pop(0)
 
     if pila[0][0] == "tk_Coma":
         pila.pop(0) 
@@ -559,7 +640,8 @@ def contarsi_gramar():
         pila.pop(0) 
 
     else:
-        ErrrorSintactico("Registro | Digito",pila[0][1] ,pila[0][2] ,pila[0][0])
+        ErrrorSintactico("Registro | Digito, se omitio ttoken",pila[0][1] ,pila[0][2] ,pila[0][0])
+        pila.pop(0) 
 
     validar_PC_gramar()
 
@@ -587,7 +669,9 @@ def sumar_gramar():
         pila.pop(0) 
 
     else:
-        ErrrorSintactico("Registro",pila[0][1] ,pila[0][2] ,pila[0][0])
+        
+        ErrrorSintactico("Registro, se omitio token",pila[0][1] ,pila[0][2] ,pila[0][0])
+        pila.pop(0)
 
     validar_PC_gramar()
 
@@ -601,6 +685,9 @@ def hacer_suma(data):
             for x in i:
                 if is_integer(x):
                     suma += float(x)
+                else:
+                    if x != data:
+                        return "No todos los registros son numericos"
             return suma
     return "No se encontro registro"     
 
@@ -609,18 +696,19 @@ def datos_gramar():
     global Claves
     global Registros
     global textConsola
+    
     validar_PA_gramar()
+    
     textConsolas = textConsola
     textConsolas += "\n"
     for i in Claves:
         textConsolas += i.replace('"',"")  + "\t"
-    
+  
+
+
     for x in Registros:
         textConsolas += "\n"
-        for i in range (0,len(Registros)+1):
-    
-            
-        
+        for i in range (0,len(x)):
             if is_integer( x[i]):
                 textConsolas += str(x[i].replace('"',"")) +  "\t"
             else:
@@ -628,7 +716,7 @@ def datos_gramar():
     
     
     data = []
-
+    
     for x in Registros:
         temp = []
         for i in x:
@@ -638,18 +726,20 @@ def datos_gramar():
                 temp.append(i.replace('"',""))
            
         data.append(temp)
-
+   
     keys = []
     for x in Claves:
         keys.append(x.replace('"',""))
 
-    df = pd.DataFrame(data, columns = keys)
-    textConsola += "\n" + str(df)
+    
+    if data != None  and keys != None:
+        df = pd.DataFrame(data, columns = keys)
+        textConsola += "\n" + str(df) + "\n"
+    else:
+        textConsola += "\n" + str("No data") + "\n"
 
-        
+       
     validar_PC_gramar()
-
-
     validar_ptocoma_gramar()
 
 def max_gramar():
@@ -662,7 +752,9 @@ def max_gramar():
         pila.pop(0) 
 
     else:
-        ErrrorSintactico("Registro",pila[0][1] ,pila[0][2] ,pila[0][0])
+        
+        ErrrorSintactico("Registro, se omitio token",pila[0][1] ,pila[0][2] ,pila[0][0])
+        pila.pop(0)
 
     validar_PC_gramar()
 
@@ -678,7 +770,9 @@ def hacer_max(dato):
                 if is_integer(x):
                     if mayor<float(x):
                         mayor = float(x)
-                
+                else:
+                    if x != dato:
+                        return "No todos los registros son numericos" 
             return mayor
     return "No se encontro registro" 
 
@@ -692,7 +786,9 @@ def min_gramar():
         pila.pop(0) 
 
     else:
-        ErrrorSintactico("Registro",pila[0][1] ,pila[0][2] ,pila[0][0])
+        
+        ErrrorSintactico("Registro, se omitio token",pila[0][1] ,pila[0][2] ,pila[0][0])
+        pila.pop(0)
 
     validar_PC_gramar()
 
@@ -708,7 +804,9 @@ def hacer_min(dato):
                 if is_integer(x):
                     if menor>float(x):
                         menor = float(x)
-                
+                else:
+                    if x != dato:
+                        return "No todos los registros son numericos" 
             return menor
     return "No se encontro registro" 
 
@@ -750,14 +848,15 @@ def expReport_gramar():
         pila.pop(0) 
 
     else:
-        ErrrorSintactico("Registro",pila[0][1] ,pila[0][2] ,pila[0][0])
+        ErrrorSintactico("Registro, se omitio token",pila[0][1] ,pila[0][2] ,pila[0][0])
+        pila.pop(0)
 
 
     validar_PC_gramar()
     validar_ptocoma_gramar()
 
     
-    print(pila) 
+    #print(pila) 
     print("")
     #print(textConsola) 
     print("")
@@ -767,22 +866,26 @@ def validar_ptocoma_gramar():
     if pila[0][0] == "tk_PtoComa":
         pila.pop(0) 
     else:
-        ErrrorSintactico("tk_PtoComa",pila[0][1] ,pila[0][2] ,pila[0][0])
+        ErrrorSintactico("tk_PtoComa, se remplazo el token",pila[0][1] ,pila[0][2] ,pila[0][0])
+        pila.pop(0) 
 
 def validar_PA_gramar():
     global pila
     if pila[0][0] == "tk_PA":
         pila.pop(0) 
     else:
-        ErrrorSintactico("tk_PA",pila[0][1] ,pila[0][2] ,pila[0][0])
+        ErrrorSintactico("tk_PA, se remplazo el token",pila[0][1] ,pila[0][2] ,pila[0][0])
+        pila.pop(0)
 
 def validar_PC_gramar():
     global pila
     if pila[0][0] == "tk_PC":
         pila.pop(0) 
     else:
-        ErrrorSintactico("tk_PC",pila[0][1] ,pila[0][2] ,pila[0][0])
-        
+        ErrrorSintactico("tk_PC, se remplazo el token",pila[0][1] ,pila[0][2] ,pila[0][0])
+        pila.pop(0)
+#temina gramatica-------------------------------------------------------          
+
 #error sintactico
 def ErrrorSintactico(tipo,fila,columna,data):
     global Errores
@@ -850,7 +953,6 @@ def isNumero(txt):
 #numero entero
 def is_integer(string):
     try: 
-       
         float(string)
         return True
     except ValueError:

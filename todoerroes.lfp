@@ -1,0 +1,42 @@
+Clavess = [
+
+	"codigos" ,"producto", "precio_compra",
+	"precio_venta","stock"
+]
+
+Registross = [
+	{1,"Barbacoa",10.50,20.00,6}
+	{2,"Salsa",12.00,16.00,7}
+	{3,"Mayonesa",15.00,18.00,4}
+	{4,"Mostaza",14.00,16.00,4}
+
+]
+
+
+
+imprimir("Plantilla actual de: ");
+imprimirln("FC Bayern Munchen");
+
+imprimirln("conteos");
+conteo();
+
+imprimirln("promedio");
+promedio("precio_compra");
+
+imprimirln("contar si");
+contarsi("stock", 4); 
+
+imprimirln("datos");
+datos();
+
+imprimirln("sumar edades");
+sumar("precio_compra");
+
+imprimirln("mayor edad");
+max("precio_compra");
+
+imprimirln("menor edad");
+min("precio_compra");
+
+#exportarReporte("titulo");
+
