@@ -1,0 +1,71 @@
+
+graph L{
+node[shape=oval fillcolor="#A181FF" style =filled]
+
+subgraph cluster_p{
+label= " terreno1 "
+bgcolor = "#FF7878"
+raiz[label = "F/C" fillcolor="#FFD581" ]
+
+Fila1[label="1",group=1];
+Fila2[label="2",group=1];
+Fila3[label="3",group=1];
+
+Fila1--Fila2;
+Fila2--Fila3;
+
+Columna1[label="1",group=2];
+Columna2[label="2",group=3];
+Columna3[label="3",group=4];
+
+Columna1--Columna2;
+Columna2--Columna3;
+
+raiz--Fila1; 
+raiz--Columna1;
+
+ {rank=same;raiz;Columna1;Columna2;Columna3;}
+
+nodo1_1[label="1",fillcolor="#81FFDA",group=2]
+nodo1_2[label="2",fillcolor="#81FFDA",group=3]
+nodo1_3[label="3",fillcolor="#81FFDA",group=4]
+
+nodo2_1[label="6",fillcolor="#81FFDA",group=2]
+nodo2_2[label="7",fillcolor="#81FFDA",group=3]
+nodo2_3[label="8",fillcolor="#81FFDA",group=4]
+
+nodo3_1[label="11",fillcolor="#81FFDA",group=2]
+nodo3_2[label="12",fillcolor="#81FFDA",group=3]
+nodo3_3[label="13",fillcolor="#81FFDA",group=4]
+
+Fila1--nodo1_1;
+{rank=same;Fila1,nodo1_1,nodo1_2,nodo1_3}
+Fila2--nodo2_1;
+{rank=same;Fila2,nodo2_1,nodo2_2,nodo2_3}
+Fila3--nodo3_1;
+{rank=same;Fila3,nodo3_1,nodo3_2,nodo3_3}
+
+Columna1--nodo1_1;
+Columna2--nodo1_2;
+Columna3--nodo1_3;
+
+nodo1_1--nodo1_2;
+nodo1_2--nodo1_3;
+
+nodo2_1--nodo2_2;
+nodo2_2--nodo2_3;
+
+nodo3_1--nodo3_2;
+nodo3_2--nodo3_3;
+
+
+ /*Enlazar*/
+ nodo1_1--nodo2_1;
+nodo1_2--nodo2_2;
+nodo1_3--nodo2_3;
+
+nodo2_1--nodo3_1;
+nodo2_2--nodo3_2;
+nodo2_3--nodo3_3;
+
+} }

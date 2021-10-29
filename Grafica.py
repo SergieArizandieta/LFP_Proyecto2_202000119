@@ -49,12 +49,15 @@ def ventanas():
             data = ComboReportes.get()
             if data == "Reporte Token":
                 print("Reporte token")
+                op.popupmsg("Se genero reporte Token","Reporte")
                 ReporteTokens()  
         
             elif data ==  "Reporte Error":
                 print("Reportye Errores")
+                op.popupmsg("Se genero reporte Errores","Reporte")
                 ReporteTErrores()
             elif data == "Arbol de derivacion":
+                op.popupmsg("Se genero Arbol de derivacion","Reporte")
                 print("Arbol de derivacion")
 
 
@@ -74,7 +77,7 @@ def ventanas():
                                     "Reporte Token", 
                                     "Reporte Error",
                                     "Arbol de derivacion"],state="readonly")
-        ComboReportes.place(x=1120, y= 25)
+        ComboReportes.place(x=1120, y= 25)  
         #ImagenesCombo.pack( pady=200,)
         ComboReportes.current()
 
