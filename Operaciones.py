@@ -789,6 +789,9 @@ def contarsi_gramar():
         pila.pop(0)
 
     if pila[0][0] == "tk_Coma":
+        graphviz += 'nodo3_' + str(conteointrucciones) + '_' + str(conteosubinstrucciones) + '[label="' + ";" +'",fillcolor="#81FFDA"]\n'
+        graphviz +='nodo3_' + str(conteointrucciones) +'_1' + '--nodo3_' + str(conteointrucciones) + "_" + str(conteosubinstrucciones) + "\n"
+        conteosubinstrucciones +=1
         pila.pop(0) 
     else:
         ErrrorSintactico("tk_Coma",pila[0][1] ,pila[0][2] ,pila[0][0])

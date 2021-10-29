@@ -237,12 +237,14 @@ nodo3_8_2[label="(",fillcolor="#81FFDA"]
 nodo3_8_1--nodo3_8_2
 nodo3_8_3[label="''nacionalidad''",fillcolor="#81FFDA"]
 nodo3_8_1--nodo3_8_3
-nodo3_8_4[label="''Alemán''",fillcolor="#81FFDA"]
+nodo3_8_4[label=";",fillcolor="#81FFDA"]
 nodo3_8_1--nodo3_8_4
-nodo3_8_5[label=")",fillcolor="#81FFDA"]
+nodo3_8_5[label="''Alemán''",fillcolor="#81FFDA"]
 nodo3_8_1--nodo3_8_5
-nodo3_8_6[label=";",fillcolor="#81FFDA"]
+nodo3_8_6[label=")",fillcolor="#81FFDA"]
 nodo3_8_1--nodo3_8_6
+nodo3_8_7[label=";",fillcolor="#81FFDA"]
+nodo3_8_1--nodo3_8_7
 nodo3_9_1[label="<imprimirln>",fillcolor="#81FFDA"]
 Columna3--nodo3_9_1
 nodo3_9_0[label="imprimirln",fillcolor="#81FFDA"]
@@ -337,4 +339,16 @@ nodo3_16_4[label=")",fillcolor="#81FFDA"]
 nodo3_16_1--nodo3_16_4
 nodo3_16_5[label=";",fillcolor="#81FFDA"]
 nodo3_16_1--nodo3_16_5
+nodo3_17_1[label="<exportarReporte>",fillcolor="#81FFDA"]
+Columna3--nodo3_17_1
+nodo3_17_0[label="exportarReporte",fillcolor="#81FFDA"]
+nodo3_17_1--nodo3_17_0
+nodo3_17_2[label="(",fillcolor="#81FFDA"]
+nodo3_17_1--nodo3_17_2
+nodo3_17_3[label="''titulo''",fillcolor="#81FFDA"]
+nodo3_17_1--nodo3_17_3
+nodo3_17_4[label=")",fillcolor="#81FFDA"]
+nodo3_17_1--nodo3_17_4
+nodo3_17_5[label=";",fillcolor="#81FFDA"]
+nodo3_17_1--nodo3_17_5
 } }

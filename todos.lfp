@@ -36,5 +36,5 @@ max("stock");
 imprimirln("menor stock");
 min("stock");
 
-#exportarReporte("titulo");
+exportarReporte("titulo");
 
